@@ -88,7 +88,7 @@
 
     // 15. str_split($string, $length) - Converts a string to an array, breaking it into smaller chunks
     // $str = "Converts a string to an array";
-    // print_r(str_split($str)); // lengh default is 1
+    // print_r(str_split($str)); // length default is 1
     // print_r(str_split($str, 7)); 
 
 
