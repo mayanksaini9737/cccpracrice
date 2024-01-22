@@ -83,7 +83,7 @@
     // print_r(array_pop($assocArr));  // it returns last value of last key-value pair
     // print_r($assocArr);
     echo "<br>";
-    // array_pop($arr2);    // if we pop an empty array then it remain empty. not throwing error 
+    // array_pop($arr2);    // if we pop an empty array then it remain empty. not throwing error(if it not exist then throws error)
     // print_r($arr2);
 
 
@@ -101,12 +101,12 @@
 
     // 8. array_shift($array) - Removes the first element from an array
 
-    // print_r(array_shift($arr2));        // returns last removed element 
+    // print_r(array_shift($arr2));        // returns removed element 
     // echo "<br>";
     // print_r($arr2);
 
     // $multArr = array(array(1,2,3), array(4,5,6), array(7,8,9));
-    // print_r(array_shift($multArr));     // returns the removed array that is at first index of $multiArr
+    // print_r(array_shift($multArr));     // returns the removed element that is at first index of $multiArr
     // print_r($multArr);
 
     // print_r($assocArr);
@@ -118,6 +118,7 @@
     // 9. array_splice($array, $start, $length, $replacement) -  Removes a portion of the array and replaces it with something else.
     
     // returns removed element that is removed from $arr (return type is array)
+    // index update automatically
     // $start is negative then it start counting from end of the $arr
     // if $length is greater than actual length from start of array to end then it removes all element from $start 
     // if $replacement is not given then it only remove the specified length of array
@@ -145,10 +146,12 @@
     $assocArr = array("Deep"=>33, "Azeem"=>132, "Yogesh"=>128); // associative array
     $repm_arr = array(38=>"Mayank");
     // print_r(array_splice($assocArr, 0, 1, 33));  // 33 added at index 0
+    // print_r(array_splice($assocArr, 0, 1, array(1, 2, 3)));  // 1, 2, 3 added at index 0, 1, 2
     print_r(array_splice($assocArr, 0, 1, $repm_arr)); // only value is added at index 0 from key value pair
     print_r($assocArr);
 
     */
+
 
     // 3) Array Access
     // ======================================
@@ -184,12 +187,11 @@
     // 12. array_key_exists($key, $array) - Checks if the given key or index exists in the array.
     
     // Returns TRUE if the key exists and FALSE if the key does not exist
-    // if we don't enter an index(key) then it will throw error
 
     // $arr = array(1, 2, 3);
     // echo array_key_exists(6, $arr); // if index exist then it's ans is 1 otherwise nothing
     // var_dump(array_key_exists(1, $arr)); // if index exist then true and if not then false
-    // var_dump(array_key_exists($arr)); 
+    // var_dump(array_key_exists($arr)); // if we don't enter an index(key) then it will throw error
 
     // example:
     // if (array_key_exists(1, $arr)){
@@ -204,7 +206,7 @@
     
     // $assocArr = array("Deep"=>33, "Azeem"=>132, "Yogesh"=>128);
     // echo array_key_exists("Deep", $assocArr);   // if key exist then it's ans is 1 otherwise nothing
-    // var_dump(array_key_exists("Ravi", $assocArr));   // if key exist then it's ans is 1 otherwise nothing
+    // var_dump(array_key_exists("Ravi", $assocArr));   // if key exist then it's ans true otherwise false
 
     
     // 13. array_keys($array) - Returns all the keys or a subset of the keys of an array
@@ -268,13 +270,11 @@
     // var_dump(in_array(array(4,5,6), $multArr));     // true
         
         // for ($i=0; $i < sizeof($multArr); $i++) { 
-        //     // echo "in";
         //     if(in_array(5, $multArr[$i])){
-        //         var_dump(in_array(5, $multArr[$i]));
         //         echo "found it";
-        //     echo "<br>";
-        //     break;
+        //         break;
         //     }
+        //     echo "Not found";
         // }
         
     echo "<br>";    
@@ -289,17 +289,17 @@
     // 16. array_search($needle, $haystack) or array_search(value, array, strict) - Searches an array for a given value and returns the corresponding key
     
     // Returns the key of a value if it is found in the array, and FALSE otherwise. If the value is found in the array more than once, the first matching key is returned.
-    // strict Optional. If this parameter is set to TRUE, then this function will search for identical elements in the array. Possible values:
+    // strict - Optional. If this parameter is set to TRUE, then this function will search for identical elements in the array. Possible values:
                                 // true
                                 // false - Default
-                                // When set to true, the number 5 is not the same as the string 5
+                                // When set to true, the number 5 is not the same as the string "5"
 
     // $arr = array(1, 22, "22", 3, "Mayank", "22");  
     // echo array_search(3, $arr);     // 2 - index of 3 (if value is not exist then nothing)
     // var_dump(array_search(33, $arr));     // false
-    // echo array_search("22", $arr, false);     // returns int(1) that is the index of value
+    // echo array_search("22", $arr);     // returns int(1) that is the index of value
     // echo "<br>";
-    // echo array_search("22", $arr, true);     // returns int(2) that is the index of value
+    // echo array_search("22", $arr, true);     // returns int(2) that is the first index of value that is string
 
     // $multArr = array(array(1,2,3), array(4,5,6), array(7,8,9));
     // echo array_search(5, $multArr);  
@@ -310,7 +310,7 @@
     // echo array_search(132, $assocArr);  // Azeem
     // echo array_search("132", $assocArr);  // Azeem
     // echo array_search("132", $assocArr, true);  // nothing
-    // var_dump(array_search("132", $assocArr, true));  // nothing
+    // var_dump(array_search("132", $assocArr, true));  // false
     // var_dump(array_search(132.5, $assocArr));  // bool(false)
     
 
@@ -331,7 +331,7 @@
 
     // $mix = array(4, "Mayank", "Ravi","Deep"=>33, "Azeem"=>132);
     // $mix_reverse = array_reverse($mix, true);
-    // echo $mix[1];   // reason for this is preserve - it reverse the array but changeing it's element
+    // echo $mix[1];   // reason for this is preserve - it reverse the array but changeing not changing index
     
     */
 
@@ -350,7 +350,8 @@
     // sort($myArr); 
     // print_r($myArr);
     // // echo sort($myArr);  // 1 
-    // // var_dump(sort($myArr));  //if using var_dump istead of index then true
+    // // var_dump(sort($myArr));  // true
+    // // print_r((sort($myArr));  // prints reversed array
 
 
     // 19. rsort($array)  - sorts an indexed array in descending order
@@ -372,6 +373,7 @@
     // asort($assocArr);
     // print_r($assocArr);
     
+    // sort - in ascending num, capital alphabet, small alphpbet
     
     // 21. arsort($array) - Sorts an associative array by values in descending order 
     
@@ -387,7 +389,7 @@
 
     // 22. ksort($array) - Sorts an associative array by key in ascending order
 
-    // 1 (true) remain first sorting and false also (but its before item key is number then number+1 key assign to this true or false and then normal sorting will be done)
+    // 1 (true) remain first in sorting and false also (but its before item key is number then number+1 key assign to this true or false and then normal sorting will be done)
     // 54 will be sorted in ascending order  
 
     // $assocArr = array("Deep"=>33, "Azeem"=>132, "Yogesh"=>128, "38" => "Mayank");
@@ -423,7 +425,7 @@
 
     // 24. array_filter($array, $callback) or array_filter(array, callbackfunction, flag) - Filters elements of an array using a callback function
 
-    // Returns the filtered array
+    // Returns the filtered array (index of element is same as in original array)
     // callback function - optional. Specifies the callback function to use
     // flag - Optional. Specifies what arguments are sent to callback:
                 // ARRAY_FILTER_USE_KEY - pass key as the only argument to callback (instead of the value)
@@ -433,7 +435,7 @@
     // function even_ele($ele){
     //     return ($ele % 2 == 0);     
     // }
-    // // print_r(array_filter($arr, 'even_ele'));  // filter only values
+    // // print_r(array_filter($arr, 'even_ele'));  // filters only values
     // $even_arr = array_filter($arr, 'even_ele');
     // print_r($even_arr);
     
@@ -444,14 +446,15 @@
     // print_r(array_filter($arr, 'even_ele', ARRAY_FILTER_USE_KEY));  // it filter the key of element
 
     // $arr = array(33, 64, 374, 478);
-    // function even_ele($ele, $key){
+    // function even_ele_both($ele, $key){
     //     if(($ele % 2 == 1) && ($key % 2 == 0)){
-    //         // return $ele. $key;
+    //         // return $ele;    // it return element with index (you can return anything)
+    //         // return $key;    
     //         // return 1;
     //         return 45;
     //     }
     // }
-    // print_r(array_filter($arr, 'even_ele', ARRAY_FILTER_USE_BOTH));  // it filter the key and value both
+    // print_r(array_filter($arr, 'even_ele_both', ARRAY_FILTER_USE_BOTH));  // it filter the key and value both
 
     // $arr = array("Deep", "Mayank", "Azeem", "Yogeshwar");
     // function avg_name($name){
