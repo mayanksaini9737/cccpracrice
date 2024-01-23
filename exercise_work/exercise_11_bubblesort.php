@@ -1,6 +1,6 @@
 <?php 
     $arrayToSort = [64, 34, 25, 12, 22, 11, 90];
-    function bubbleSort($arr){
+    function bubbleSort(&$arr){
         for ($i=0; $i < count($arr) ; $i++) { 
             $swap = false;
             for ($j=1; $j <count($arr)-$i; $j++) { 
@@ -15,8 +15,7 @@
                 break;
             }
         }
-        return $arr;
     }
-    $out = bubbleSort($arrayToSort);
-    print_r($out);
+    bubbleSort($arrayToSort);
+    print_r($arrayToSort);
 ?>
