@@ -19,14 +19,39 @@
   </head>
   <body>
     <?php 
-        
+
+    // function update($table, $values,$con){
+    //     foreach($con as $column_name => $val ){
+    //         $column_name = 
+    //     }
+    //     echo "UPDATE {$table} SET WHERE ";
+    // }
     ?>
 
+    <?php 
+        if ($_GET['result']){
+            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Success!</strong> Your entry has been submitted successfully.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>';
+        } else {
+            // echo "The record was not inserted successfully beacause of this error --> ".mysqli_error($conn);
+            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Failed!</strong>We are facing some technical issue and Your entry was not submitted successfully. We regret the inconvinience caused!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>';
+        }
+    ?>
+    
     <div class="container">
         <h1 class="text-center my-3"> Product Details </h1>
-        <form class=" p-4 form-horizontal">
+        <form action="submit.php" method="post" class=" p-4 form-horizontal">
         <div class="form-group">
-            <label for="produnct_name">Pruduct Name:</label>
+            <label for="product_name">Pruduct Name:</label>
             <input type="text" class="form-control" id="product_name" name="product_name">
         </div>
         <div class="form-group">
