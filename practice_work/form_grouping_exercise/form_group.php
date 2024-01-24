@@ -27,51 +27,31 @@
     //     echo "UPDATE {$table} SET WHERE ";
     // }
     ?>
-    <?php 
-        if (isset($_GET['flag'])){
-            if ($_GET['flag']== true){
-                echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Success!</strong> Your entry has been submitted successfully.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-                </div>';
-            }
-            else {
-                echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Failed!</strong>We are facing some technical issue and Your entry was not submitted successfully. We regret the inconvinience caused!
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-                </div>';
-            }
-        }
-    ?>
     <div class="container">
         <h1 class="text-center my-3"> Product Details </h1>
-        <form action="submit.php" method="post" class=" p-4 form-horizontal">
+        <form action="submit_grouping.php" method="post" class=" p-4 form-horizontal">
         <div class="form-group">
             <label for="product_name">Pruduct Name:</label>
-            <input type="text" class="form-control" id="product_name" name="product_name">
+            <input type="text" class="form-control" id="product_name" name="group1[product_name]">
         </div>
         <div class="form-group">
             <label for="sku">SKU:</label>
-            <input type="text" class="form-control" id="sku" name="sku">
+            <input type="text" class="form-control" id="sku" name="group1[sku]">
         </div>
         <div class="form-group">
             <label for="product_type">Product Type:</label>
             <div class="form-check form-check-inline">
-                <input class="form-check-input mx-2" type="radio" name="product_type" id="product_type" value="simple" checked>
+                <input class="form-check-input mx-2" type="radio" name="group1[product_type]" id="product_type" value="simple" checked>
                 <label class="form-check-label" for="inlineRadio1">Simple</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="product_type" id="product_type2" value="bundle">
+                <input class="form-check-input" type="radio" name="group1[product_type]" id="product_type2" value="bundle">
                 <label class="form-check-label" for="inlineRadio2">Bundle</label>
             </div>
         </div>
         <div class="form-group">
             <label for="category_name">Category:</label>
-            <select class="form-control" id="category_name" name="category_name">
+            <select class="form-control" id="category_name" name="group1[category_name]">
                 <option>Bar & Game Room</option>
                 <option>Bedroom</option>
                 <option>Decor</option>
@@ -85,34 +65,34 @@
         </div>
         <div class="form-group">
             <label for="manufacturer_cost">Manufacturer cost:</label>
-            <input type="text" class="form-control" id="manufacturer_cost" name="manufacturer_cost">
+            <input type="text" class="form-control" id="manufacturer_cost" name="group1[manufacturer_cost]">
         </div>
         <div class="form-group">
             <label for="shipping_cost">Shipping cost:</label>
-            <input type="text" class="form-control" id="shipping_cost" name="shipping_cost">
+            <input type="text" class="form-control" id="shipping_cost" name="group1[shipping_cost]">
         </div>
         <div class="form-group">
             <label for="total_cost">Total cost:</label>
-            <input type="text" class="form-control" id="total_cost" name="total_cost">
+            <input type="text" class="form-control" id="total_cost" name="group1[total_cost]">
         </div>
         <div class="form-group">
             <label for="price">Price:</label>
-            <input type="text" class="form-control" id="price" name="price">
+            <input type="text" class="form-control" id="price" name="group1[price]">
         </div>
         <div class="form-group">
             <label for="status">Status:</label>
-            <select class="form-control" id="status" name="status">
+            <select class="form-control" id="status" name="group1[status]">
                 <option>Enabled</option>
                 <option>Disbaled</option>
             </select>
         </div>
         <div class="form-group">
             <label for="created_at">Created At:</label>
-            <input type="date" class="form-control" id="created_at" name="created_at">
+            <input type="date" class="form-control" id="created_at" name="group1[created_at]">
         </div>
         <div class="form-group">
             <label for="updated_at">Updated At:</label>
-            <input type="date" class="form-control" id="updated_at" name="updated_at">
+            <input type="date" class="form-control" id="updated_at" name="group1[updated_at]">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
         </form>

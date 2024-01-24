@@ -1,6 +1,8 @@
 <?php 
     include('db_conn.php');
 
+    $flag = false;
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $product_name = $_POST['product_name'];
         $sku = $_POST['sku'];
@@ -19,9 +21,13 @@
         $insert_sql = "INSERT INTO `ccc_product` (`product_name`, `sku`, `product_type`, `category_name`, `manufacturer_cost`, `shipping_cost`, `total_cost`, `price`, `status`, `created_at`, `updated_at`) VALUES ('$product_name', '$sku', '$product_type', '$category_name', '$manufacturer_cost', '$shipping_cost', '$total_cost', '$price', '$status', '$created_at', '$updated_at')";
 
         $result = mysqli_query($conn, $insert_sql);
+        if ($result){
+            $flag = true;
+        } 
 
-        header("Location: form.php?result=$result");
+        header("Location: form.php?flag=$flag");
         
 
     }
+    mysqli_close($conn);
 ?>
