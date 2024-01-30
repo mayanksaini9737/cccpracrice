@@ -2,7 +2,7 @@
     
     include('sql/connection.php');
     include('sql/functions.php');
-    $read = read_data('ccc_product');   // select records
+    $read = read_sql('ccc_product');   // select records
     // echo $read;
     $sql = "$read ORDER BY product_id DESC LIMIT 20";
     // echo $sql;

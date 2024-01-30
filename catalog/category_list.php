@@ -2,9 +2,8 @@
     
     include('sql/connection.php');
     include('sql/functions.php');
-    $read = read_data('ccc_category');   // select records
-    $sql = "$read";
-    $result = mysqli_query($conn, $sql);    
+    $read = read_sql('ccc_category');   // select records
+    $result = execute_sql($conn, $read);    
 
     echo '<!doctype html>
         <html lang="en">

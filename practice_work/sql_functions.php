@@ -11,14 +11,14 @@
         }
         $columns = implode(",", $columns);
         $values = implode(",", $values);
-        $sql_str ="INSERT INTO {$table} ({$columns}) VALUES ({$values})";
+        $sql_str ="INSERT INTO `{$table}` ({$columns}) VALUES ({$values})";
         return $sql_str;
     }
 
 
     // 2) Update SQL generate function 
     
-    function update_sql($table, $set, $where_cn){
+    function update_sql($table, $set, $where){
         // set values
         $set_value = [];
         foreach ($set as $key => $val){
@@ -27,7 +27,7 @@
         $set_value = implode(", ", $set_value);
         // where conditions
         $where_con = [];
-        foreach($where_cn as $key => $val){
+        foreach($where as $key => $val){
             $where_con[] = "`$key` = '$val'";
         }
         $where_con = implode(' AND ', $where_con);  // AND, OR
@@ -38,10 +38,10 @@
 
     // 3) Delete SQL generate function
 
-    function delete_sql($table, $where_cn){
+    function delete_sql($table, $where){
         // where con 
         $where_con = [];
-        foreach($where_cn as $key => $val){
+        foreach($where as $key => $val){
             $where_con[] = "`$key` = '$val'";
         }
         $where_con = implode(' AND ', $where_con);  // AND, OR
@@ -52,13 +52,12 @@
 
     // 4) Read data(fetch records) SQL generate function
 
-    function read_data($table, $columns = ['*'], $where_cn = []){
+    function read_sql($table, $columns = ['*'], $where = []){
         // columns -- > (if columns are not given then it takes *)
         $columns_name = implode(', ', $columns);
-
         // where con 
         $where_con = [];
-        foreach($where_cn as $key => $val){
+        foreach($where as $key => $val){
             $where_con[] = "`$key` = '$val'";
         }
         $where_con = implode(' AND ', $where_con);  // AND, OR
@@ -69,5 +68,16 @@
         return $sql_str;
     }
     
+
+    // sql query execute function
+
+    function execute_sql($conn ,$query) {
+        $result = mysqli_query($conn, $query);
+        if ($result === false) {
+            echo "Error: " . mysqli_error($conn);
+        } else {
+            return $result;
+        }
+    }
 
 ?>
