@@ -21,7 +21,6 @@
             $arr[$max] = $arr[$last];
             $arr[$last] = $temp;
         }
-        return $arr;
     }
 
     // $output = selection_sort($arrayToSort);

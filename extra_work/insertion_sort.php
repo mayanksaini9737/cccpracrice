@@ -13,7 +13,6 @@
                 }
             }
         }
-        return $arr;
     }
 
     print_r(insertion_sort($arrayToSort));

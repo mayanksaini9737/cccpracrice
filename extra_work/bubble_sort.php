@@ -17,7 +17,6 @@
                 break;
             }
         }
-        return $arr;
     }
     bubble_sort($arrayToSort);
     print_r($arrayToSort);
