@@ -10,27 +10,21 @@
     $execute_sql = new QueryExecution($ccc_practice->getConnection());
 
     // select records
-    // $select_sql = $sql->select_query('ccc_product');
-    // $result = $execute_sql->executeQuery($select_sql);
-    // $selected_row = $execute_sql->selectFetch($result);
-    // echo "<pre>";
-    // print_r($selected_row);     // shows selected row in the form of array
+    $select_sql = $sql->select_query('ccc_product');
+    $result = $execute_sql->executeQuery($select_sql);
+    $selected_row = $execute_sql->selectFetch($result);
+    echo "<pre>";
+    print_r($selected_row);     // shows selected row in the form of array
 
 
     // for insert
-    if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+    // if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     
-        // echo "<pre>";
-        $inpdata = $_POST['group1'];
-        // print_r($inpdata);
-        $insert_query = $sql->insert_query('ccc_product', $inpdata);
-        // $result = $execute_sql->executeUpdate($insert_query);
-        // echo $result;
-        // 
-        $result = $execute_sql->executeQuery($insert_query);
-        header("Location:form_group.php");
-
-    }
+    //     $inpdata = $_POST['group1'];
+    //     $insert_query = $sql->insert_query('ccc_product', $inpdata);
+    //     $result = $execute_sql->executeQuery($insert_query);
+    //     header("Location:form_group.php");
+    // }
 
     
 
