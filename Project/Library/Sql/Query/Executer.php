@@ -16,14 +16,20 @@
             }
         }
 
-        // function fetch_assoc
-        function selectFetch($result){
+        // function Fetch all records
+        function fetchAll($result){
             $data =[];
             while ($row = $result->fetch_assoc()){
                 $data[] = $row;
             }
             return $data;
         }
+
+        // function Single record
+        function fetchSingleRecord($result){
+            return ($result && $result->num_rows > 0)?$result->fetch_assoc(): "Result might have more than one reocrd or getting error in fetch that record"; 
+        }
+
 
         // it returns affected row because the execution of this query
         public function executeUpdate($sql_query) {
