@@ -10,7 +10,7 @@ class Model_Product extends Model_Abstract
     public function insert($data){
         $insert_sql = $this->getQueryBuilder()->insert_query($this->tableName, $data);
         $execute_sql = $this->getQueryExecuter()->executeQuery($insert_sql);
-    }
+        }
 
     public function selectAll(){
         $select_sql = $this->getQueryBuilder()->select_query($this->tableName);

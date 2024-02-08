@@ -4,6 +4,12 @@ class Model_Request {
         // echo "Hello from Model_Request";
 	}
 
+	public function getRequestUri(){
+		$uri = $_SERVER['REQUEST_URI'];
+        $uri = str_replace("/Practice/Project/",'',$uri);
+		return $uri;
+	}
+
 	public function getParams($key = '') {
 		return ($key == '')
 			? $_REQUEST

@@ -6,6 +6,7 @@
         }
 
         public function showList($data = []){
+
             $table = '<div style="display:flex; align-item:center; justify-content:center">';
             $table .= '<table border="2px" style="border-collapse: collapse">';
             $table .= '<tr style="background-color: #A9A9A9">
