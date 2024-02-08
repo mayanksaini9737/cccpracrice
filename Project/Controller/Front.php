@@ -21,6 +21,6 @@ class Controller_Front{
             $products = $modelproduct->selectAll();
             echo $Layout2->showList($products);
         }
-    }
+    } 
 }
 ?>
