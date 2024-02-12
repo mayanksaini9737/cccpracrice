@@ -1,24 +1,28 @@
 <?php
-class Core_Model_Request {
-    protected $_controllerName;
-    protected $_actionName;
-    protected $_moduleName; 
-    
-	public function __construct(){
-        $reqUri = $this->getRequestUri();
-        $url = explode("/", $reqUri);
-        $this->_moduleName= $url[0];
-        $this->_controllerName = $url[1];
-        $this->_actionName = $url[2];
+class Core_Model_Request
+{
+	protected $_moduleName;
+	protected $_controllerName;
+	protected $_actionName;
+
+	public function __construct()
+	{
+		$uri = $this->getRequestUri();
+		$uri = array_filter(explode("/", $uri));
+		$this->_moduleName 		= isset( $uri[0] ) ? $uri[0] :'page';
+		$this->_controllerName 	= isset( $uri[1] ) ? $uri[1] :'index';
+		$this->_actionName 		= isset( $uri[2] ) ? $uri[2] :'index';
 	}
 
-	public function getRequestUri(){
+	public function getRequestUri()
+	{
 		$uri = $_SERVER['REQUEST_URI'];
-        $uri = str_replace("/Practice/mvc/",'',$uri);
+		$uri = str_replace("/Practice/mvc/", '', $uri);
 		return $uri;
 	}
 
-	public function getParams($key = '') {
+	public function getParams($key = '')
+	{
 		return ($key == '')
 			? $_REQUEST
 			: (isset($_REQUEST[$key])
@@ -27,7 +31,8 @@ class Core_Model_Request {
 			);
 	}
 
-	public function getPostData($key = '') {
+	public function getPostData($key = '')
+	{
 		return ($key == '')
 			? $_POST
 			: (isset($_POST[$key])
@@ -36,7 +41,8 @@ class Core_Model_Request {
 			);
 	}
 
-	public function getQueryData($key = '') {
+	public function getQueryData($key = '')
+	{
 		return ($key == '')
 			? $_GET
 			: (isset($_GET[$key])
@@ -48,26 +54,34 @@ class Core_Model_Request {
 	public function isPost()
 	{
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		    return true;
+			return true;
 		}
 		return false;
 	}
 
-    public function getControllerName(){
-        return $this->_controllerName;  
-    }
+	public function getControllerName()
+	{
+		return $this->_controllerName;
+	}
 
-    public function getActionName(){
-        return $this->_actionName;
-    }
-    public function getModuleName(){
-        return $this->_moduleName;
-    }
+	public function getActionName()
+	{
+		return $this->_actionName;
+	}
+	public function getModuleName()
+	{
+		return $this->_moduleName;
+	}
 
-    public function getFullControlClass(){
-        $controllerClass = implode('_',['Page','Controller', ucfirst($this->_controllerName)]);
-        return $controllerClass;
-    }
+	public function getFullControllerClass()
+	{
+		$controllerClass = implode('_', [
+			ucfirst($this->_moduleName),
+			'Controller',
+			ucfirst($this->_controllerName)
+		]);
+		return $controllerClass;
+	}
 
 }
 

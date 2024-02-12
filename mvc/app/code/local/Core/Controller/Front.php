@@ -1,12 +1,14 @@
-<?php 
-    class Core_Controller_Front{
-        public function init(){
-            $req = new Core_Model_Request();
-            // $req->getActionName();
-            // $req->getControllerName();
-            // $req->getModuleName();
-            $className = $req->getFullControlClass();
-            echo $className;
-        }
+<?php
+class Core_Controller_Front
+{
+    public function init()
+    {
+        $request = Mage::getModel("core/request");
+        $actionName = $request->getActionName().'Action';
+        $controllerClassName = $request->getFullControllerClass();
+        $controller = new $controllerClassName();
+        $controller->$actionName();
     }
+
+}
 ?>
