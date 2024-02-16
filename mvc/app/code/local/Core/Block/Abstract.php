@@ -2,7 +2,6 @@
 class Core_Block_Abstract
 {
     public $template;
-    public $data = [];
     public function setTemplate($template)
     {
         $this->template = $template;

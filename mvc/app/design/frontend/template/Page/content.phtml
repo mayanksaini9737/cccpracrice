@@ -1,0 +1,13 @@
+<?php
+
+echo $this->getRequest()->getParams('id') . "<br>";
+$productModel = Mage::getModel('product/product')->load(3);
+echo "<pre>";
+print_r($productModel->load(3));
+
+print_r($productModel->getId());
+echo "<pre>";
+print_r($productModel->getProductName());
+echo "<pre>";
+print_r($productModel->getSku());
+// print_r($productModel);

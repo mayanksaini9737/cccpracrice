@@ -1,11 +1,24 @@
 <?php
 class Core_Model_DB_Adapter
 {
-    public $config = [];
+    public $config = [
+        "database"=> "ccc_practice",
+        "server"=> "localhost",
+        "password"=> "",
+        "user"=> "root",
+    ];
     public $connect = null;
     public function connect()
-    {
-
+    {   
+        if (is_null($this->connect)) 
+        {
+            $this->connect = mysqli_connect(
+                $this->config["server"],
+                $this->config["user"],
+                $this->config["password"],
+                $this->config["database"]
+            );
+        }
     }
     public function fetchAll($query)
     {
@@ -21,7 +34,13 @@ class Core_Model_DB_Adapter
     }
     public function fetchRow($query)
     {
-
+        $row = [];
+        $this->connect();
+        $result = mysqli_query($this->connect, $query);
+        while($data = mysqli_fetch_assoc($result)){
+            $row = $data;
+        }
+        return $row;
     }
     public function insert($query)
     {
