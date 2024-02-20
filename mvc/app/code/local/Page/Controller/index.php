@@ -11,6 +11,13 @@ class Page_Controller_Index extends Core_Controller_Front_Action
         // $layout->getChild('head')->addJs('js/page.js');
         // $layout->getChild('head')->addCss('css/navigation.css');
         // $layout->getChild('head')->addCss('css/page.css');
+        $banner = $layout->createBlock("core/template")
+                        ->setTemplate("banner/banner.phtml");
+                        // echo get_class($banner);
+                        // die();
+        $layout->getChild('content')
+                        ->addChild('banner', $banner)
+                        ->addChild('banner', $banner);
         $layout->toHtml();
     }
 }

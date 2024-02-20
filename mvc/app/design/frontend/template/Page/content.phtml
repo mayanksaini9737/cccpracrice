@@ -1,13 +1,18 @@
 <?php
 
-echo $this->getRequest()->getParams('id') . "<br>";
-$productModel = Mage::getModel('product/product')->load(3);
-echo "<pre>";
-print_r($productModel->load(3));
+// $productModel = Mage::getModel('catalog/product')->load(3);
+// // echo "<pre>";
+// print_r($productModel->load(3));
+// echo "<br>";
+// print_r($productModel->getId());
+// echo "<br>";
+// print_r($productModel->getProductName());
+// echo "<br>";
+// print_r($productModel->getSku());
 
-print_r($productModel->getId());
-echo "<pre>";
-print_r($productModel->getProductName());
-echo "<pre>";
-print_r($productModel->getSku());
 // print_r($productModel);
+// echo $this->getChildHtml('form');
+
+echo $this->getChildHtml('');
+?>
+

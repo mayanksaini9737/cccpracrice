@@ -69,11 +69,6 @@
     }
     
     function execute_sql($conn ,$query) {
-        $result = mysqli_query($conn, $query);
-        if ($result === false) {
-            echo "Error: " . mysqli_error($conn);
-        } else {
-            return $result;
-        }
+        
     }
 ?>

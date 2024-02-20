@@ -1,19 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="" >
+    <h2>Product Form</h2>
+    <form method="POST" action="<?php echo $this->getUrl('catalog/product/save') ?>">
+        <div class="form-group">
+            <input type="hidden" name="catalog_product[product_id]">
+        </div>
+        <div class="form-group">
+            <label for="sku">SKU:</label>
+            <input type="text"  name="catalog_product[sku]" id="sku">
+        </div>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" name="catalog_product[name]" id="name">
+        </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demo</title>
-</head>
+        <div class="form-group">
+            <label for="color">Color:</label>
+            <input type="text" name="catalog_product[color]" id="color">
+        </div>
 
-<body>
-    <h1>
-        <?php echo "Mohit";
-        // echo "<br>";
-        // print_r($this->getRequest()->getParams('id'));
-        ?>
-    </h1>
-</body>
+        <div class="form-group">
+            <label for="size">Size:</label>
+            <input type="text" name="catalog_product[size]" id="size">
+        </div>
 
-</html>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea name="catalog_product[description]" id="description" cols="30" rows="10"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="image_link">Image Link:</label>
+            <input type="file" name="catalog_product[image_link]" id="image_link">
+        </div>
+
+        <div class="form-group">
+            <label for="link">Link:</label>
+            <input type="file" name="catalog_product[link]" id="link">
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" name="catalog_product[price]" id="price">
+        </div>
+
+        <div class="form-group">
+            <label for="mfr_cost">MFR Cost:</label>
+            <input type="number" name="catalog_product[mfr_cost]" id="mfr_cost">
+        </div>
+
+        <div class="form-group">
+            <label for="shipping_cost">Shipping Cost:</label>
+            <input type="number" name="catalog_product[shipping_cost]" id="shipping_cost">
+        </div>
+
+        <div class="form-group">
+            <label for="total_cost">Total Cost:</label>
+            <input type="number" name="catalog_product[total_cost]" id="total_cost">
+        </div>
+
+        <div class="form-group">
+            <label for="margin_percentage">Margin Percentage:</label>
+            <input type="number" name="catalog_product[margin_percentage]" id="margin_percentage">
+        </div>
+
+        <div class="form-group">
+            <label for="min_price">Min Price:</label>
+            <input type="number" name="catalog_product[min_price]" id="min_price">
+        </div>
+
+        <div class="form-group">
+            <label for="status">Status:</label>
+            <input type="text" name="catalog_product[status]" id="status">
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" name="submit" value="Submit">
+        </div>
+    </form>
+</div>
