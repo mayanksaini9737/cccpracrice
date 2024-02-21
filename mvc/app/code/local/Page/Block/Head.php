@@ -10,11 +10,18 @@ class Page_Block_Head extends Core_Block_Template
 
     public function addJs($file)
     {
-        $this->_js[] = $file;
+        $this->_js[] = 'skin/js/'.$file;
     }
     public function addCss($file)
     {
-        $this->_css[] = $file;
+        $this->_css[] = 'skin/css/'.$file;
+    }
+
+    public function getCssUrl($file){
+        return Mage::getBaseUrl($file);
+    }
+    public function getJsUrl($file){
+        return Mage::getBaseUrl($file);
     }
     public function getJs()
     {

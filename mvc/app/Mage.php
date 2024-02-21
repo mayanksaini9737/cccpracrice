@@ -2,8 +2,9 @@
 class Mage
 {
     public static $baseDir = 'C:/xampp/htdocs/Practice/mvc';
+    public static $baseUrl = 'http://localhost/Practice/mvc';
     public static function init()
-    {   
+    {
         $frontController = new Core_Controller_Front();
         $frontController->init();
     }
@@ -36,19 +37,17 @@ class Mage
 
     public static function getBaseDir($subDir = null)
     {
-        // if ($subDir === null) {
-        //     return self::$baseDir;
-        // }
-        // $fullPath = self::$baseDir . '/' . $subDir;
-        // if (!is_dir($fullPath)) {
-        //     return self::$baseDir;
-        // }
-        // return $fullPath; 
-        
-        if($subDir){
-            return self::$baseDir .'/'. $subDir;
+        if ($subDir) {
+            return self::$baseDir . '/' . $subDir;
         }
         return self::$baseDir;
+    }
+
+    public static function getBaseUrl($subUrl = null){
+        if ($subUrl) {
+            return self::$baseUrl . '/' . $subUrl;
+        }
+        return self::$baseUrl;
     }
 }
 ?>
