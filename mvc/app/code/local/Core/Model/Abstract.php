@@ -104,8 +104,11 @@ class Core_Model_Abstract
     }
     public function delete()
     {
-
+        $this->getResource()->delete($this);
+        return $this;
     }
+    
+    
 
 }
 ?>
