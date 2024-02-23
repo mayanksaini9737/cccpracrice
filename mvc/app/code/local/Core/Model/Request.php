@@ -18,8 +18,8 @@ class Core_Model_Request
 	{
 		$uri = $_SERVER['REQUEST_URI'];
 		$uri = str_replace("/Practice/mvc/", '', $uri);
-		if(($pos= strpos($uri,'?'))!==false){
-			$uri = substr($uri,0, $pos);
+		if (($pos = strpos($uri, '?')) !== false) {
+			$uri = substr($uri, 0, $pos);
 		}
 		return $uri;
 	}

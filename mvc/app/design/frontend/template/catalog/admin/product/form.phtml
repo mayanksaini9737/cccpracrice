@@ -1,70 +1,74 @@
+<?php 
+    $product = $this->checkProductExist();
+?>
 <div class="product-form-container">
     <h2>Add Product</h2>
     <form method="POST" action="<?php echo $this->getUrl('admin/catalog_product/save') ?>" enctype="multipart/form-data" id="productForm">
-        <input type="hidden" name="catalog_product[product_id]">
+        <input type="hidden" value="<?php echo $product->getProductId(); ?>" name="catalog_product[product_id]">
         <div class="form-field">
             <label for="sku">SKU:</label>
-            <input type="text" name="catalog_product[sku]" id="sku" required>
+            <input type="text" value="<?php echo $product->getSku(); ?>" name="catalog_product[sku]" id="sku" required>
         </div>
         <div class="form-field">
             <label for="name">Name:</label>
-            <input type="text" name="catalog_product[name]" id="name" required>
+            <input type="text" value="<?php echo $product->getName(); ?>" name="catalog_product[name]" id="name" required>
         </div>
         <div class="form-field">
             <label for="color">Color:</label>
-            <input type="text" name="catalog_product[color]" id="color" required>
+            <input type="text" value="<?php echo $product->getColor(); ?>" name="catalog_product[color]" id="color" required>
         </div>
 
         <div class="form-field">
             <label for="size">Size:</label>
-            <input type="text" name="catalog_product[size]" id="size" required>
+            <input type="text" value="<?php echo $product->getSize(); ?>" name="catalog_product[size]" id="size" required>
         </div>
 
         <div class="form-field">
             <label for="description">Description:</label>
-            <textarea name="catalog_product[description]" id="description" cols="30" rows="10" required></textarea>
+            <textarea name="catalog_product[description]"  id="description" cols="30" rows="10" required><?php echo $product->getDescription(); ?></textarea>
         </div>
 
         <div class="form-field">
             <label for="image_link">Image Link:</label>
-            <input type="file" name="catalog_product[image_link]" id="image_link" required>
+            <input type="file" value="<?php echo $product->getImageLink(); ?>" name="catalog_product[image_link]"  id="image_link" >
         </div>
 
         <div class="form-field">
             <label for="link">Link:</label>
-            <input type="file" name="catalog_product[link]" id="link" required>
+            <input type="file" value="<?php echo $product->getLink(); ?>" name="catalog_product[link]" id="link" >
         </div>
 
         <div class="form-field">
             <label for="price">Price:</label>
-            <input type="number" name="catalog_product[price]" id="price" required>
+            <input type="number" value="<?php echo $product->getPrice(); ?>" name="catalog_product[price]" id="price" required>
         </div>
         <div class="form-field">
             <label for="mfr_cost">MFR Cost:</label>
-            <input type="number" name="catalog_product[mfr_cost]" id="mfr_cost" required>
+            <input type="number" value="<?php echo $product->getMfrCost(); ?>" name="catalog_product[mfr_cost]" id="mfr_cost" required>
         </div>
         <div class="form-field">
             <label for="shipping_cost">Shipping Cost:</label>
-            <input type="number" name="catalog_product[shipping_cost]" id="shipping_cost" required>
+            <input type="number" value="<?php echo $product->getShippingCost(); ?>" name="catalog_product[shipping_cost]" id="shipping_cost" required>
         </div>
         <div class="form-field">
             <label for="total_cost">Total Cost:</label>
-            <input type="number" name="catalog_product[total_cost]" id="total_cost" required>
+            <input type="number" value="<?php echo $product->getTotalCost(); ?>" name="catalog_product[total_cost]" id="total_cost" required>
         </div>
         <div class="form-field">
             <label for="margin_percentage">Margin Percentage:</label>
-            <input type="number" name="catalog_product[margin_percentage]" id="margin_percentage" required>
+            <input type="number" value="<?php echo $product->getMarginPercentage(); ?>" name="catalog_product[margin_percentage]" id="margin_percentage" required>
         </div>
         <div class="form-field">
             <label for="min_price">Min Price:</label>
-            <input type="number" name="catalog_product[min_price]" id="min_price" required>
+            <input type="number" value="<?php echo $product->getMinPrice(); ?>" name="catalog_product[min_price]" id="min_price" required>
         </div>
         <div class="form-field">
             <label for="status">Status:</label>
-            <input type="text" name="catalog_product[status]" id="status" required>
+            <input type="text" value="<?php echo $product->getStatus(); ?>" name="catalog_product[status]" id="status" required>
         </div>
         <div class="form-action">
             <input type="submit" name="submit" class="submit-btn" value="Submit">
         </div>
     </form>
 </div>
+

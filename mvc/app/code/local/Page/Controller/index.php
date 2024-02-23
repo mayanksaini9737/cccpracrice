@@ -5,8 +5,6 @@ class Page_Controller_Index extends Core_Controller_Front_Action
     {
 
         $layout = $this->getLayout();
-        $layout->getChild('head')->addCss('header.css');
-        $layout->getChild('head')->addCss('footer.css');
         $banner = $layout->createBlock("core/template")
             ->setTemplate("banner/banner.phtml");
         $layout->getChild('content')

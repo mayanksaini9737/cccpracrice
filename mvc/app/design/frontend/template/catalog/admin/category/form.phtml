@@ -1,19 +1,22 @@
-<div class="form">
-    <h2>Category Form</h2>
-    <form method="POST" action="<?php echo $this->getUrl('/catalog/category/save') ?>">
-        <div class="">
-            <input type="hidden" name="catalog_category[category_id]">
+<?php $data = $this->checkCategoryExist() ;
+// print_r($data) ?>
+
+<div class="form" id="categoryForm">
+    <h2>Add Category</h2>
+    <form class="category-form" method="POST" action="<?php echo $this->getUrl('admin/catalog_category/save') ?>">
+        <div class="form-group">
+            <input type="hidden" value="<?php echo $data->getCategoryId ?>" name="catalog_category[category_id]">
         </div>
-        <div class="">
+        <div class="form-group">
             <label for="category_name">Category Name:</label>
-            <input type="text" name="catalog_category[category_name]" id="category_name">
+            <input type="text" value="<?php echo $data->getCategoryName ?>" name="catalog_category[category_name]" id="category_name" class="category-name">
         </div>
-        <div class="">
+        <div class="form-group">
             <label for="status">Status:</label>
-            <input type="text" name="catalog_category[status]" id="status">
+            <input type="text" value="<?php echo $data->getStatus ?>" name="catalog_category[status]" id="status" class="category-status">
         </div>
-        <div class="">
-            <input type="submit" name="submit" value="Submit">
+        <div class="form-group">
+            <input type="submit" name="submit" value="Submit" onclick="validateForm()">
         </div>
     </form>
 </div>

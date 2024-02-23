@@ -22,12 +22,14 @@ class Core_Model_Resource_Abstract
     public function save(Core_Model_Abstract $abstract)
     {
         $data = $abstract->getData();
-        if (isset($data[$this->getPrimaryKey()])) {
-            unset($data[$this->getPrimaryKey()]);
+        if ($data[$this->getPrimaryKey()]) {
+            $sql = $this->updateSql($this->getTableName(), $data, [$this->getPrimaryKey() => $abstract->getId()]);
+            $this->getAdapter()->update($sql);
+        } else {
+            $sql = $this->insertSql($this->getTableName(), $data);
+            $id = $this->getAdapter()->insert($sql);
+            $abstract->setId($id);
         }
-        $sql = $this->insertSql($this->getTableName(), $data);
-        $id = $this->getAdapter()->insert($sql);
-        $abstract->setId($id);
     }
     public function insertSql($table_name, $data)
     {
@@ -45,18 +47,18 @@ class Core_Model_Resource_Abstract
     public function delete(Core_Model_Abstract $abstract)
     {
         $data = $abstract->getId();
-        $sql = $this->deleteSql($this->getTableName(),[$this->getPrimaryKey()=>$data]);
+        $sql = $this->deleteSql($this->getTableName(), [$this->getPrimaryKey() => $data]);
         $this->getAdapter()->delete($sql);
     }
 
     public function deleteSql($table_name, $where)
     {
         $where_con = [];
-        foreach($where as $key => $val){
+        foreach ($where as $key => $val) {
             $where_con[] = "`$key` = '$val'";
         }
         $where_con = implode(' AND ', $where_con);
-        $sql_str =  "DELETE FROM {$table_name} WHERE {$where_con}";
+        $sql_str = "DELETE FROM {$table_name} WHERE {$where_con}";
         return $sql_str;
     }
 
@@ -67,17 +69,18 @@ class Core_Model_Resource_Abstract
         // print_r($product->getData());
 
     }
-    function updateSql($table, $set, $where){
+    function updateSql($table, $set, $where)
+    {
         $set_value = [];
-        foreach ($set as $key => $val){
+        foreach ($set as $key => $val) {
             $set_value[] = "`$key` = '$val'";
-        } 
+        }
         $set_value = implode(", ", $set_value);
         $where_con = [];
-        foreach($where as $key => $val){
+        foreach ($where as $key => $val) {
             $where_con[] = "`$key` = '$val'";
         }
-        $where_con = implode(' AND ', $where_con); 
+        $where_con = implode(' AND ', $where_con);
         $sql_str = "UPDATE {$table} SET {$set_value} WHERE {$where_con}";
         return $sql_str;
     }
