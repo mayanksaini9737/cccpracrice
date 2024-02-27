@@ -1,19 +1,21 @@
-<?php $data = $this->checkCategoryExist() ;
-// print_r($data) ?>
+<?php $data = $this->checkCategoryExist() ; ?>
 
 <div class="form" id="categoryForm">
     <h2>Add Category</h2>
     <form class="category-form" method="POST" action="<?php echo $this->getUrl('admin/catalog_category/save') ?>">
         <div class="form-group">
-            <input type="hidden" value="<?php echo $data->getCategoryId ?>" name="catalog_category[category_id]">
+            <input type="hidden" value="<?php echo $data->getCategoryId() ?>" name="catalog_category[category_id]">
         </div>
         <div class="form-group">
             <label for="category_name">Category Name:</label>
-            <input type="text" value="<?php echo $data->getCategoryName ?>" name="catalog_category[category_name]" id="category_name" class="category-name">
+            <input type="text" value="<?php echo $data->getCategoryName() ?>" name="catalog_category[category_name]" id="category_name" class="category-name">
         </div>
         <div class="form-group">
             <label for="status">Status:</label>
-            <input type="text" value="<?php echo $data->getStatus ?>" name="catalog_category[status]" id="status" class="category-status">
+            <select name="catalog_category[status]" id="status">
+                <option value='1' <?php if($data->getStatus()=="Enabled"){echo 'selected';} ?> class="status">Enabled</option>;
+                <option value='0' <?php if($data->getStatus()=="Disabled"){echo 'selected';} ?> class="status">Disabled</option>;
+            </select>
         </div>
         <div class="form-group">
             <input type="submit" name="submit" value="Submit" onclick="validateForm()">

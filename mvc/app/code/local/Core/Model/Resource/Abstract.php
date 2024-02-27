@@ -23,7 +23,10 @@ class Core_Model_Resource_Abstract
     {
         $data = $abstract->getData();
         if ($data[$this->getPrimaryKey()]) {
-            $sql = $this->updateSql($this->getTableName(), $data, [$this->getPrimaryKey() => $abstract->getId()]);
+            $sql = $this->updateSql($this->getTableName(),
+                $data,
+                [$this->getPrimaryKey() => $abstract->getId()]
+                );
             $this->getAdapter()->update($sql);
         } else {
             $sql = $this->insertSql($this->getTableName(), $data);
@@ -62,13 +65,6 @@ class Core_Model_Resource_Abstract
         return $sql_str;
     }
 
-    public function update(Catalog_Model_Product $product)
-    {
-        $data = $product->getData();
-        // $product->load($data);
-        // print_r($product->getData());
-
-    }
     function updateSql($table, $set, $where)
     {
         $set_value = [];

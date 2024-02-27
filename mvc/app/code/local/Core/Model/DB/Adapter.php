@@ -22,7 +22,13 @@ class Core_Model_DB_Adapter
     }
     public function fetchAll($query)
     {
-
+        $row = [];
+        $this->connect();
+        $result = mysqli_query($this->connect, $query);
+        while ($data = mysqli_fetch_assoc($result)) {
+            $row[] = $data;
+        }
+        return $row;
     }
     public function fetchPairs($query)
     {

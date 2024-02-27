@@ -64,7 +64,10 @@
         </div>
         <div class="form-field">
             <label for="status">Status:</label>
-            <input type="text" value="<?php echo $product->getStatus(); ?>" name="catalog_product[status]" id="status" required>
+            <select name="catalog_product[status]" id="status">
+                <option value='1' <?php if($product->getStatus()=="Enabled"){echo 'selected';} ?> class="status">Enabled</option>;
+                <option value='0' <?php if($product->getStatus()=="Disabled"){echo 'selected';} ?> class="status">Disabled</option>;
+            </select>
         </div>
         <div class="form-action">
             <input type="submit" name="submit" class="submit-btn" value="Submit">

@@ -8,9 +8,11 @@ class Catalog_Block_Admin_Category_Form extends Core_Block_Template
 
     public function checkCategoryExist()
     {
-        $productId = $this->getRequest()->getParams('id');
-        return $productId ? Mage::getModel('catalog/product')->load($productId)
-            : Mage::getModel('catalog/product');
+        // $categoryId = $this->getRequest()->getParams('id');
+        // return $categoryId ? Mage::getModel('catalog/category')->load($categoryId)
+        //     : Mage::getModel('catalog/category');
+        return  Mage::getModel('catalog/category')
+            ->load($this->getRequest()->getParams('id',0));
     }
 }
 

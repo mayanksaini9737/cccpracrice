@@ -37,7 +37,11 @@ class Core_Model_Abstract
     }
     public function getCollection()
     {
-
+        $collection = new $this->_collectionClass();
+        $collection->setResource($this->getResource());
+        $collection->setModel(get_class($this));
+        $collection->select();  
+        return $collection;
     }
     public function getPrimaryKey()
     {
@@ -100,13 +104,16 @@ class Core_Model_Abstract
     public function load($id, $column = null)
     {
         $this->_data = $this->getResource()->load($id, $column);
+        if (empty($this->_data) && $id>0 ) {
+            echo "Record with id $id not found.";
+        }
         return $this;
     }
     public function delete()
     {
         if($this->getId()){
             $this->getResource()->delete($this);
-        };
+        }
         return $this;
     }
     

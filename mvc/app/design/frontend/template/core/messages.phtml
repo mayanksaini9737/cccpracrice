@@ -1,1 +1,3 @@
-alert message
+<div id="alert" class="<?php echo $showAlert ? 'show' : ''; ?>">
+    <p><?php echo $alertMessage ?? ''; ?></p>
+</div>

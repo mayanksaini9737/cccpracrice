@@ -3,6 +3,7 @@ class Mage
 {
     public static $baseDir = 'C:/xampp/htdocs/Practice/mvc';
     public static $baseUrl = 'http://localhost/Practice/mvc';
+    private static $_singleton = null;
     public static function init()
     {
         $frontController = new Core_Controller_Front();
@@ -22,6 +23,12 @@ class Mage
 
     public static function getSingleton($className)
     {
+        if(isset(self::$_singleTon[$className])){
+            return  self::$_singleton[$className]; 
+        }
+        else{
+            return self::$_singleton[$className] = self::getModel($className); 
+        }
 
     }
 

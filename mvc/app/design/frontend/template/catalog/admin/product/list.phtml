@@ -1,0 +1,82 @@
+<?php
+// echo "<pre>";
+echo get_class($this);
+// echo get_class($productCollection);
+// print_r($productCollection->getData());  
+
+// $productCollection->addFieldToFilter('category_id', '2');
+
+?>
+
+
+
+<div class="table-container">
+    <h1 class="table-heading">Product List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>SKU</th>
+                <th>Name</th>
+                <th>Color</th>
+                <th>Size</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>MFR Cost</th>
+                <th>Shipping Cost</th>
+                <th>Total Cost</th>
+                <th>Margin Percentage</th>
+                <th>Min Price</th>
+                <th>Status</th>
+                <th colspan="2">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->getProductList() as $_product): ?>
+                <tr>
+                    <td>
+                        <?php echo $_product->getName() ?>
+                    </td>
+                    <td>
+                        <?php echo $_product->getSku() ?>
+                    </td>
+                    <td>
+                        <?php echo $_product->getColor() ?>
+                    </td>
+                    <td>
+                        <?php echo $_product->getSize() ?>
+                    </td>
+                    <td>
+                        <?php echo $_product->getDescription() ?>
+                    </td>
+                    <td>
+                        <?php echo $_product->getPrice() ?>
+                    </td>
+                    <td>
+                        <?php echo $_product->getMfrCost() ?>
+                    </td>
+                    <td>
+                        <?php echo $_product->getShippingCost() ?>
+                    </td>
+                    <td>
+                        <?php echo $_product->getTotalCost() ?>
+                    </td>
+                    <td>
+                        <?php echo $_product->getMarginPercentage() ?>
+                    </td>
+                    <td>
+                        <?php echo $_product->getMinPrice() ?>
+                    </td>
+                    <td>
+                        <?php echo $_product->getStatus() ?>
+                    </td>
+                    <td>
+                        <a href="<?php echo Mage::getBaseUrl("admin/catalog_product/delete?id={$_product->getId()}"); ?>">Delete</a>
+                    </td>
+                    <td>
+                        <a href="<?php echo Mage::getBaseUrl("admin/catalog_product/form?id={$_product->getId()}"); ?>">Edit</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>

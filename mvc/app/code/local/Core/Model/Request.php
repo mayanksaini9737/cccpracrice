@@ -24,13 +24,12 @@ class Core_Model_Request
 		return $uri;
 	}
 
-	public function getParams($key = '')
-	{
+	public function getParams($key = '', $arg = null) {
 		return ($key == '')
 			? $_REQUEST
 			: (isset($_REQUEST[$key])
 				? $_REQUEST[$key]
-				: ''
+				: ((!is_null($arg)) ? $arg : '')
 			);
 	}
 
