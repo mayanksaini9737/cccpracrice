@@ -4,6 +4,7 @@ class Core_Model_Abstract
     protected $_data = [];
     protected $_resourceClass = '';
     protected $_collectionClass = '';
+    protected $_modelClass = '';
     protected $_esource = null;
     protected $_collection = null;
 
@@ -39,7 +40,7 @@ class Core_Model_Abstract
     {
         $collection = new $this->_collectionClass();
         $collection->setResource($this->getResource());
-        $collection->setModel(get_class($this));
+        $collection->setModel($this->_modelClass);
         $collection->select();  
         return $collection;
     }

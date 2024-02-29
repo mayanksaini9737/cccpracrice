@@ -5,6 +5,7 @@ class Core_Controller_Front_Action
 
     public function __construct()
     {
+        $this->init();
         $layout = $this->getLayout();
         $layout->getChild('head')->addCss('header.css');
         $layout->getChild('head')->addCss('header.js');
@@ -13,6 +14,9 @@ class Core_Controller_Front_Action
         $layout->getChild('head')->addJs('message.js');
     }
 
+    public function init()
+    {
+    }
     public function getLayout()
     {
         if (is_null($this->_layout)){
@@ -21,8 +25,16 @@ class Core_Controller_Front_Action
         return $this->_layout;
     }
 
-    public function getRequest(){
+    public function getRequest()
+    {
         return Mage::getModel('core/request');
+    }
+
+    public function setRedirect($url)
+    {
+        $url = Mage::getBaseUrl($url);
+        header('Location:'. $url);
+
     }
 }
 ?>

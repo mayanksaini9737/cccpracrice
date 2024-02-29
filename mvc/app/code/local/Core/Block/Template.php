@@ -13,7 +13,10 @@ class Core_Block_Template extends Core_Block_Abstract
     }
     public function removeChild($key)
     {
-
+        if(isset($this->_child[$key])){
+            unset($this->_child[$key]);
+        }
+        return $this;
     }
     public function getChild($key)
     {
@@ -31,7 +34,7 @@ class Core_Block_Template extends Core_Block_Abstract
         } 
         else
         {
-            $html = $this->getChild($key)->toHtml();
+            $html = isset($this->_child[$key]) ? $this->getChild($key)->toHtml() : '';
         }
         return $html;
     }

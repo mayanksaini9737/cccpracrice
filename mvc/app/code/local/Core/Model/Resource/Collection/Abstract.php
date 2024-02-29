@@ -105,8 +105,7 @@ class Core_Model_Resource_Collection_Abstract
 
         $result = $this->_resource->getAdapter()->fetchAll($sql);
         foreach ($result as $row) {
-            $modelObj = new $this->_model;
-            $this->_data[] = $modelObj->setData($row);
+            $this->_data[] = Mage::getModel($this->_model)->setData($row);
         }
     }
     public function getData()

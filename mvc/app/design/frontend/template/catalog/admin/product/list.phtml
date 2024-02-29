@@ -1,6 +1,6 @@
 <?php
 // echo "<pre>";
-echo get_class($this);
+// echo get_class($this);
 // echo get_class($productCollection);
 // print_r($productCollection->getData());  
 
@@ -20,6 +20,7 @@ echo get_class($this);
                 <th>Color</th>
                 <th>Size</th>
                 <th>Description</th>
+                <th>Category</th>
                 <th>Price</th>
                 <th>MFR Cost</th>
                 <th>Shipping Cost</th>
@@ -47,6 +48,9 @@ echo get_class($this);
                     </td>
                     <td>
                         <?php echo $_product->getDescription() ?>
+                    </td>
+                    <td>
+                        <?php echo $_product->getCategoryName() ?>
                     </td>
                     <td>
                         <?php echo $_product->getPrice() ?>

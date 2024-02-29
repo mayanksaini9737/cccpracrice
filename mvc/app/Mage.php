@@ -29,7 +29,6 @@ class Mage
         else{
             return self::$_singleton[$className] = self::getModel($className); 
         }
-
     }
 
     public static function register($key, $value)
