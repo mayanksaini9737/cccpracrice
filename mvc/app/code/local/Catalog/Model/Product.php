@@ -28,6 +28,5 @@ class Catalog_Model_Product extends Core_Model_Abstract
             $this->_categoryNames[$this->getCategoryId()] = $category->getCategoryName();
             return $this->_categoryNames[$this->getCategoryId()];
         }
-        
     }
 }

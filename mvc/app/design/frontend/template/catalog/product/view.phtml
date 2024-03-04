@@ -1,0 +1,19 @@
+<?php $product = $this->getProduct();
+ ?>
+<div class="product-container">
+    <img class="product-image" src="<?php echo Mage::getBaseUrl('media/product/'. $product->getImageLink() ) ?>" alt="Product Image">
+    <div class="product-details">
+        <h2><?php echo $product->getName(); ?></h2>
+        <p><strong>Color:</strong><?php echo $product->getColor(); ?></p>
+        <p><strong>Size:</strong><?php echo $product->getSize(); ?></p>
+        <p><strong>Description:</strong><?php echo $product->getDescription(); ?></p>
+        <p><strong>Price:</strong><?php echo $product->getPrice(); ?></p>
+        <label for="quantity"><strong>Quantity:</strong></label>
+        <div class="quantity-div">
+            <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+            <input type="number" id="quantity" value="1" min="1" readonly>
+            <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(<?php echo $product->getProductId() ?>)">Add to Cart</button>
+    </div>
+</div>

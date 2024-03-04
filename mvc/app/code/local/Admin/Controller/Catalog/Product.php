@@ -11,7 +11,6 @@ class Admin_Controller_Catalog_Product extends Core_Controller_Admin_Action
         $layout->getChild('head')->addJs('product/form.js');
 
         $child = $layout->getChild('content');
-
         $productForm = $layout->createBlock('catalog/admin_product_form');
         $child->addChild('form', $productForm);
         $layout->toHtml();
@@ -20,11 +19,9 @@ class Admin_Controller_Catalog_Product extends Core_Controller_Admin_Action
     public function saveAction()
     {
         $data = $this->getRequest()->getParams('catalog_product');
-        $product = Mage::getModel('catalog/product')
+        Mage::getModel('catalog/product')
             ->setData($data)->save();
-
-        // echo '<pre>';
-        // print_r($product);
+        $this->setRedirect('admin/catalog_product/list');
     }
 
     public function deleteAction()

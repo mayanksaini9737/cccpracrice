@@ -2,6 +2,7 @@
 class Core_Block_Abstract
 {
     public $template;
+    protected $_data = [];
     public function setTemplate($template)
     {
         $this->template = $template;
@@ -29,11 +30,16 @@ class Core_Block_Abstract
     }
     public function getData($key = null)
     {
+        if ($key === null) {
+            return $this->_data;
+        }
+        return isset($this->_data[$key]) ? $this->_data[$key] : null;
 
     }
-    public function setData($data)
+    public function setData($key, $value)
     {
-
+        $this->_data = [$key => $value];
+        return $this;
     }
     public function getUrl($path)
     {
@@ -45,7 +51,7 @@ class Core_Block_Abstract
     }
     public function render()
     {
-        include Mage::getBaseDir('app')  .'/design/frontend/template/'. $this->getTemplate();
+        include Mage::getBaseDir('app') . '/design/frontend/template/' . $this->getTemplate();
     }
 }
 ?>

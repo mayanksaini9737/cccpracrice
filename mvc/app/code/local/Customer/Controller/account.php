@@ -1,19 +1,8 @@
 <?php
 class Customer_Controller_Account extends Core_Controller_Front_Action
 {
-    protected $_allowedAction = ['register', 'login'];
+    protected $_allowedActions = ['register', 'login','forgotpassword'];
 
-    public function init()
-    {
-        // $this->getRequest()->getActionName();
-        if (
-            !in_array($this->getRequest()->getActionName(), $this->_allowedAction) &&
-            !Mage::getSingleton('core/session')->get('logged_in_customer_id')
-        ) {
-            $this->setRedirect('customer/account/dashboard');
-            $this->setRedirect('customer/account/login');
-        }
-    }
     public function registerAction()
     {
         $layout = $this->getLayout();
@@ -86,16 +75,7 @@ class Customer_Controller_Account extends Core_Controller_Front_Action
         $customerId = Mage::getSingleton('core/session')
             ->get('logged_in_customer_id');
         if ($customerId) {
-            $layout = $this->getLayout();
-            // $child = $layout->getChild('content');
-            // $dashboard = $layout->createBlock('customer/');
-            $layout->toHtml();
-            echo "<pre>";
-            $customer = Mage::getModel('customer/customer')->load($customerId);
-            print_r($customer);
-        } else {
-            $address = Mage::getBaseUrl('customer/account/login');
-            header('Location:' . $address);
+            $this->setRedirect('page/index/index');
         }
     }
     public function forgotpasswordAction()
@@ -107,6 +87,13 @@ class Customer_Controller_Account extends Core_Controller_Front_Action
         $loginForm = $layout->createBlock('customer/account_forgotpassword');
         $child->addChild('forgotPasswordform', $loginForm);
         $layout->toHtml();
+    }
+
+    public function logoutAction()
+    {
+        $session = Mage::getSingleton('core/session');
+        $session->remove('logged_in_customer_id');
+        $this->setRedirect('customer/account/login');
     }
 }
 ?>

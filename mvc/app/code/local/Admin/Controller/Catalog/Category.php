@@ -2,14 +2,13 @@
 
 class Admin_Controller_Catalog_Category extends Core_Controller_Admin_Action
 {
+
     public function formAction()
     {
-        
         $layout = $this->getLayout();
         $child = $layout->getChild('content');
         $layout->getChild('head')->addCss('category/form.css');
         $layout->getChild('head')->addJs('category/form.js');
-        // $layout->getChild('messages')->;
 
         $categoryForm = $layout->createBlock('catalog/admin_category_form');
         $child->addChild('form', $categoryForm);

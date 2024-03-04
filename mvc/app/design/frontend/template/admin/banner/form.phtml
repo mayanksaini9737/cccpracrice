@@ -1,0 +1,32 @@
+<?php 
+    $banner = $this->checkBanner();
+?>
+<div class="login-container">
+    <form class="login-form" method="post" action="<?php echo $this->getUrl('admin/banner/save') ?>" enctype="multipart/form-data">
+        <h2>Add Banner</h2>
+        <input type="hidden" value="<?php echo $banner->getBannerId(); ?>" name="banner[banner_id]">
+        <div class="form-field">
+            <label for="bannerFile">Banner Image:</label>
+            <input type="file" id="bannerFile" name="banner[banner_image]">
+        </div>
+        <?php if($banner->getBannerImage()): ?>
+            <div>   
+                <img src="<?php echo $banner->getBannerPath() ?>" class="banner-image" alt="Banner Image">
+            </div>
+        <?php endif; ?>
+        <div class="form-field">
+            <label for="status">Status:</label>
+            <select name="banner[status]" id="status">
+                <option value='1' <?php if($banner->getStatus()=="Enabled"){echo 'selected';} ?> class="status">Enabled</option>;
+                <option value='0' <?php if($banner->getStatus()=="Disabled"){echo 'selected';} ?> class="status">Disabled</option>;
+            </select>
+        </div>
+        <div class="form-field">
+            <label for="showOn">Show on:</label>
+            <input type="text" value="<?php echo $banner->getShowOn(); ?>" id="showOn" name="banner[show_on]">
+        </div>
+        <div class="form-action">
+            <button type="submit">Add</button>
+        </div>
+    </form>
+</div>

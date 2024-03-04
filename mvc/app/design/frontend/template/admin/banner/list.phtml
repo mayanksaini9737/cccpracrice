@@ -1,0 +1,34 @@
+<div class="table-container">
+    <h1 class="table-heading">Banner List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>View</th>
+                <th>Status</th>
+                <th colspan="2">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->getBannerList() as $banner): ?>
+                <tr>
+                    <td>
+                        <?php echo $banner->getBannerImage() ?>
+                    </td>
+                    <td>
+                        <a href="<?php echo $banner->getBannerPath() ?>" target="_blank">View</a>
+                    </td>
+                    <td>
+                        <?php echo $banner->getStatus() ?>
+                    </td>
+                    <td>
+                        <a href="<?php echo Mage::getBaseUrl("admin/banner/delete?id={$banner->getId()}"); ?>">Delete</a>
+                    </td>
+                    <td>
+                        <a href="<?php echo Mage::getBaseUrl("admin/banner/form?id={$banner->getId()}"); ?>">Edit</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
