@@ -1,18 +1,33 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const slider = document.querySelector('.banner-slider');
-    let translateValue = 0;
+let slideIndex = 0;
 
-    function slide(direction) {
-        const step = 320; // Adjust the step size based on your design
-        translateValue += direction * step;
-        slider.style.transform = `translateX(${translateValue}px)`;
-    }
+function showSlide(index) {
+  const slides = document.querySelectorAll(".slides img");
 
-    document.getElementById('prevButton').addEventListener('click', function() {
-        slide(1);
-    });
+  if (index >= slides.length) {
+    slideIndex = 0;
+  }
+  if (index < 0) {
+    slideIndex = slides.length - 1;
+  }
 
-    document.getElementById('nextButton').addEventListener('click', function() {
-        slide(-1);
-    });
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+
+  slides[slideIndex].style.display = "block";
+}
+
+function nextSlide() {
+  slideIndex++;
+  showSlide(slideIndex);
+}
+
+function prevSlide() {
+  slideIndex--;
+  showSlide(slideIndex);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  showSlide(slideIndex);
+  setInterval(nextSlide, 3000);
 });

@@ -1,6 +1,6 @@
 <?php 
 
-class Quote_Model_Resource_Quote extends Core_Model_Resource_Abstract
+class Sales_Model_Resource_Quote extends Core_Model_Resource_Abstract
 {
     public function __construct()
     {

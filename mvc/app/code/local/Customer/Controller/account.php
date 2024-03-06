@@ -10,8 +10,8 @@ class Customer_Controller_Account extends Core_Controller_Front_Action
         $layout->getChild('head')->addCss('customer/account/register.css');
         $layout->getChild('head')->addJs('customer/account/register.js');
         $child = $layout->getChild('content');
-        $loginForm = $layout->createBlock('customer/account_register');
-        $child->addChild('registerForm', $loginForm);
+        $registerForm = $layout->createBlock('customer/account_register');
+        $child->addChild('registerForm', $registerForm);
         $layout->toHtml();
     }
     public function saveAction()
@@ -84,8 +84,8 @@ class Customer_Controller_Account extends Core_Controller_Front_Action
         $layout->removeChild('header')->removeChild('footer');
         $layout->getChild('head')->addCss('customer/account/forgotpassword.css');
         $child = $layout->getChild('content');
-        $loginForm = $layout->createBlock('customer/account_forgotpassword');
-        $child->addChild('forgotPasswordform', $loginForm);
+        $forgotPasswordForm = $layout->createBlock('customer/account_forgotpassword');
+        $child->addChild('forgotPasswordform', $forgotPasswordForm);
         $layout->toHtml();
     }
 

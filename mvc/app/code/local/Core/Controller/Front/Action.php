@@ -11,8 +11,7 @@ class Core_Controller_Front_Action
         $layout->getChild('head')->addCss('header.css');
         $layout->getChild('head')->addCss('header.js');
         $layout->getChild('head')->addCss('footer.css');
-        $layout->getChild('head')->addCss('message.css');
-        $layout->getChild('head')->addJs('message.js');
+        
     }
 
     public function init()

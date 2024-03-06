@@ -1,5 +1,9 @@
-<?php foreach($this->getBanner()->getData() as $banner): ?>
-<div class="banner-img">
-    <img src="<?php echo Mage::getBaseUrl('media/banner/'. $banner->getBannerImage()) ?>" alt="banner image">
+<div class="banner-slider">
+    <div class="slides">
+        <?php foreach ($this->getBanner()->getData() as $_banner): ?>
+            <img src="<?php echo $_banner->getBannerPath() ?>" alt="Banner Image">
+        <?php endforeach; ?>
+    </div>
+    <button class="prev" onclick="prevSlide()">&#10094;</button>
+    <button class="next" onclick="nextSlide()">&#10095;</button>
 </div>
-<?php endforeach; ?>
