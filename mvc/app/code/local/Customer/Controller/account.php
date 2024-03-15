@@ -16,7 +16,6 @@ class Customer_Controller_Account extends Core_Controller_Front_Action
     }
     public function saveAction()
     {
-        echo "<pre>";
         $registerCredentials = $this->getRequest()->getParams('customer');
         $checkCustomerExist = Mage::getModel('customer/customer')
             ->getCollection()
@@ -93,6 +92,8 @@ class Customer_Controller_Account extends Core_Controller_Front_Action
     {
         $session = Mage::getSingleton('core/session');
         $session->remove('logged_in_customer_id');
+        $session->remove('quote_id');
+        // session_destroy();
         $this->setRedirect('customer/account/login');
     }
 }

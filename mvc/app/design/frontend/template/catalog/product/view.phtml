@@ -8,12 +8,15 @@
         <p><strong>Size:</strong><?php echo $product->getSize(); ?></p>
         <p><strong>Description:</strong><?php echo $product->getDescription(); ?></p>
         <p><strong>Price:</strong><?php echo $product->getPrice(); ?></p>
-        <label for="quantity"><strong>Quantity:</strong></label>
-        <div class="quantity-div">
-            <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
-            <input type="number" id="quantity" value="1" min="1" readonly>
-            <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
-        </div>
-        <button class="add-to-cart" onclick="addToCart(<?php echo $product->getProductId() ?>)">Add to Cart</button>
+        <form action="<?php echo Mage::getBaseUrl().'/sales/quote/add' ?>" method="post">
+            <label for="quantity"><strong>Quantity:</strong></label>
+            <div class="quantity-div">
+                <button type="button" class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+                <input type="number" name="quantity" id="quantity" value="1" min="1" readonly>
+                <button type="button" class="quantity-btn" onclick="changeQuantity(1)">+</button>
+            </div>
+            <input type="hidden" name="product_id" value="<?php echo $product->getProductId(); ?>">
+            <input type="submit" value="Add to Cart" class="add-to-cart">
+        </form>
     </div>
 </div>

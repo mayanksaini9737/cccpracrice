@@ -1,0 +1,21 @@
+<?php   $product =$this->getProduct(); ?>
+<div class="product-container">
+    <img class="product-image" src="<?php echo Mage::getBaseUrl('media/product/'. $product->getImageLink() ) ?>" alt="Product Image">
+    <div class="product-details">
+        <h2><?php echo $product->getName(); ?></h2>
+        <p><strong>Color:</strong><?php echo $product->getColor(); ?></p>
+        <p><strong>Size:</strong><?php echo $product->getSize(); ?></p>
+        <p><strong>Description:</strong><?php echo $product->getDescription(); ?></p>
+        <p><strong>Price:</strong><?php echo $product->getPrice(); ?></p>
+        <form action="<?php echo Mage::getBaseUrl().'/sales/quote/update' ?>" method="post">
+            <label for="quantity"><strong>Quantity:</strong></label>
+            <div class="quantity-div">
+                <button type="button" class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+                <input type="number" name="quantity" id="quantity" value="<?php echo $this->getItemQuantity() ?? 1 ?>" min="1" readonly>
+                <button type="button" class="quantity-btn" onclick="changeQuantity(1)">+</button>
+            </div>
+            <input type="hidden" name="product_id" value="<?php echo $product->getProductId(); ?>">
+            <input type="submit" value="Add to Cart" class="add-to-cart">
+        </form>
+    </div>
+</div>

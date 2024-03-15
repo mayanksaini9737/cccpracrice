@@ -102,6 +102,7 @@ class Core_Model_Resource_Collection_Abstract
         if (isset($this->_select['LIMIT'])) {
             $sql .= " LIMIT {$this->_select['LIMIT']}";
         }
+        // echo $sql;
 
         $result = $this->_resource->getAdapter()->fetchAll($sql);
         foreach ($result as $row) {

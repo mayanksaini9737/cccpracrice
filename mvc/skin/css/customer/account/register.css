@@ -1,3 +1,10 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+}
+
 .form-container {
     max-width: 600px;
     background-color: #fff;

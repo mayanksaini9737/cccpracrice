@@ -7,7 +7,7 @@ class Tempconverter_Controller_Converter extends Core_Controller_Front_Action
         $layout = $this->getLayout();
         $layout->removeChild('header')->removeChild('footer');
         $layout->getChild('head')->addCss('form.css');
-        // $layout->getChild('head')->addJs('customer/account/register.js');
+        $layout->getChild('head')->addCss('list.css');
         $child = $layout->getChild('content');
         $registerForm = $layout->createBlock('tempconverter/converter');
         $child->addChild('registerForm', $registerForm);
@@ -16,8 +16,7 @@ class Tempconverter_Controller_Converter extends Core_Controller_Front_Action
     public function saveAction()
     {
         $requestData = $this->getRequest()->getParams('tempdata');
-
-        $convert = Mage::getModel('tempconverter/converter')->addTemp($requestData);
-        echo "insert";
+        Mage::getModel('tempconverter/converter')->addTemp($requestData);
+        $this->setRedirect('tempconverter/converter/form');
     }
 }

@@ -1,0 +1,151 @@
+<?php 
+    $customer = $this->getCustomerDetails();
+    $address = $this->customerAddress()->getData();
+?>
+
+<div class="address-show">
+<?php if(!empty($address)):?>
+<?php foreach ($address as $addValue):?>
+    <div id="asdasdasdasd" class="address-cards" data-json='{"customer":"<?php echo $addValue->getCustomerId();?>","billing_address":"<?php echo $addValue->getBillingAddress();?>","billing_city":"<?php echo $addValue->getBillingCity();?>","billing_region":"<?php echo $addValue->getBillingRegion();?>","billing_country":"<?php echo $addValue->getBillingCountry();?>","billing_phone":"<?php echo $addValue->getBillingPhone();?>"}'>
+        <p>Address :</p>
+        <p>Address :<?php echo $addValue->getBillingAddress()?></p>
+        <p>City : <?php echo $addValue->getBillingCity()?></p>
+        <p>Region :<?php echo $addValue->getBillingRegion()?></p>
+        <p>Country :<?php echo $addValue->getBillingCountry()?></p>
+        <p>Phone No:<?php echo $addValue->getBillingPhone()?></p>
+    </div>
+<?php endforeach; ?>
+<?php endif; ?>
+</div>
+
+<script type="text/javascript">
+    $('.address-cards').each((i,e)=>{
+        console.log($(e).attr('data-json'))
+        $(e).click(()=>{
+            var _data = JSON.parse($(e).attr('data-json'))
+            for (var key in _data) {
+                if (_data.hasOwnProperty(key)) {
+                    $('#'+key).val(_data[key]);
+                }
+            }
+            // $('#billing_address').val(_data.billing_address);
+            // $('#billing_city').val(_data.billing_city);
+            // $('#billing_country').val(_data.billing_country);
+        });
+    })
+</script>
+
+<div class="form-checkout" id="formContainer">
+    <!-- <h1> Checkout: </h1> -->
+
+    <form method="post" action="<?php echo $this->getUrl('sales/quote/checkout') ?>">
+        <input type="hidden" value="<?php echo $customer->getCustomerId(); ?>" name="address[customer_id]" >
+        <input type="hidden" value="<?php echo $customer->getCustomerEmail(); ?>" name="address[email]" >
+        
+        <h3>Billing  address</h3>
+        
+        <div class="form-field">
+            <label for="billing_address">Billing Address:</label>
+            <input type="text" id="billing_address" name="address[billing_address]" required >
+        </div>
+
+        <div class="form-field">
+            <label for="billing_city">Billing City:</label>
+            <input type="text" id="billing_city" name="address[billing_city]" required >
+        </div>
+
+        <div class="form-field">
+            <label for="billing_region">Billing Region:</label>
+            <input type="text" id="billing_region" name="address[billing_region]" required >
+        </div>
+
+        <div class="form-field">
+            <label for="billing_country">Billing Country:</label>
+            <input type="text" id="billing_country" name="address[billing_country]" required >
+        </div>
+
+        <div class="form-field">
+            <label for="billing_phone">Billing Phone:</label>
+            <input type="text" id="billing_phone" name="address[billing_phone]" required >
+        </div>
+
+        <h3>Shipping address</h3>
+
+        <div class="form-field check-box">
+            <input type="checkbox" id="same_as_billing" onchange="copyBillingToShipping()" class="checkbox-same-as-billing">
+            <label for="same_as_billing" class="label-same-as-billing">Same as Billing</label>
+        </div>
+
+
+        <div class="form-field">
+            <label for="shipping_address">Shipping Address:</label>
+            <input type="text" id="shipping_address" name="address[shipping_address]" required >
+        </div>
+
+        <div class="form-field">
+            <label for="shipping_city">Shipping City:</label>
+            <input type="text" id="shipping_city" name="address[shipping_city]" required >
+        </div>
+
+        <div class="form-field">
+            <label for="shipping_region">Shipping Region:</label>
+            <input type="text" id="shipping_region" name="address[shipping_region]" required >
+        </div>
+
+        <div class="form-field">
+            <label for="shipping_country">Shipping Country:</label>
+            <input type="text" id="shipping_country" name="address[shipping_country]" required >
+        </div>
+
+        <div class="form-field">
+            <label for="shipping_phone">Shipping Phone:</label>
+            <input type="text" id="shipping_phone" name="address[shipping_phone]" required >
+        </div>
+
+        <h3>Payment</h3>
+
+        <div class="form-field">
+            <label for="payment_method">Payment Method:</label>
+            <select name="payment_method" id="payment_method" required >
+                <option value="cod" >Cash On Delivery</option>;
+                <option value="upi">UPI</option>;
+                <option value="debit_card" >Debit Card</option>;
+                <option value="credit_card" >Credit Card</option>;
+                <option value="emi" >EMI</option>;
+            </select>
+        </div>
+
+        <h3>Shipping</h3>
+        
+        <div class="form-field">
+            <label for="shipping_method">Shipping Method:</label>
+            <select name="shipping_method" id="shipping_method" required >
+                <option value="normal">Normal</option>
+                <option value="same_day_delivery" >Same day delivery</option>;
+                <option value="instore_pickup" >In-store pickup</option>;
+            </select>
+        </div>
+        
+        <button class="button-submit" type="submit">Place Order</button>
+    </form>
+</div>
+
+<script>
+    function copyBillingToShipping() {
+        if (document.getElementById('same_as_billing').checked) {
+            document.getElementById('shipping_address').value = document.getElementById('billing_address').value;
+            document.getElementById('shipping_city').value = document.getElementById('billing_city').value;
+            document.getElementById('shipping_region').value = document.getElementById('billing_region').value;
+            document.getElementById('shipping_country').value = document.getElementById('billing_country').value;
+            document.getElementById('shipping_phone').value = document.getElementById('billing_phone').value;
+            document.getElementById('shipping_zip').value = document.getElementById('billing_zip').value;
+        } else {
+            document.getElementById('shipping_address').value = '';
+            document.getElementById('shipping_city').value = '';
+            document.getElementById('shipping_region').value = '';
+            document.getElementById('shipping_country').value = '';
+            document.getElementById('shipping_phone').value = '';
+            document.getElementById('shipping_zip').value = '';
+        }
+    }
+</script>

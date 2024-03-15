@@ -17,13 +17,14 @@ class Core_Model_Resource_Abstract
     public function load($id, $column = null)
     {
         $sql = "SELECT * FROM {$this->_tableName} WHERE {$this->_primaryKey}= '{$id}' LIMIT 1";
+        
         return $this->getAdapter()->fetchRow($sql);
     }
     public function save(Core_Model_Abstract $abstract)
     {
         $data = $abstract->getData();
         $primaryKey = $this->getPrimaryKey();
-        if (isset($data[$primaryKey])) {
+        if (isset($data[$primaryKey]) && !empty($data[$primaryKey])) {
             $sql = $this->updateSql($this->getTableName(),
                 $data,
                 [$this->getPrimaryKey() => $abstract->getId()]

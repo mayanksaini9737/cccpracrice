@@ -7,10 +7,22 @@
         <span class="hamburger"></span>
     </button>
     <nav class="nav">
+        <form class="search-form" action="" method="GET">
+            <input type="text" name="" placeholder="Search" class="search-input">
+            <button type="submit" class="search-button"><i class="fas fa-search">search</i></button>
+        </form>
         <ul class="nav__list">
-            <!-- <li class="nav__item"><a href="#" class="nav__link">Category</a></li> -->
-            <li class="nav__item"><a href="#" class="nav__link">Cart</a></li>
-            <li class="nav__item"><a href="#" class="nav__link">Customer care</a></li>
+            <li class="nav__item"><a href="<?php echo Mage::getBaseUrl() ?>" class="nav__link">Home</a></li>
+            <li class="nav__item" id="categoryDropdown">
+                <label class="nav__link">Category</label>
+                <ul class="category-dropdown">
+                    <!-- <li><a href="<?php echo Mage::getBaseUrl().'/catalog/category/view' ?>">All</a></li> -->
+                    <li><a href="<?php echo Mage::getBaseUrl().'/catalog/category/view?id=1' ?>">Apparel</a></li>
+                    <li><a href="<?php echo Mage::getBaseUrl().'/catalog/category/view?id=2' ?>">Electronics</a></li>
+                    <li><a href="<?php echo Mage::getBaseUrl().'/catalog/category/view?id=3' ?>">Furniture</a></li>
+                </ul>
+            </li>
+            <li class="nav__item"><a href="<?php echo Mage::getBaseUrl().'/cart/quote/view' ?>" class="nav__link">Cart</a></li>
             <li class="nav__item ">
                 <div class="logo">
                     <img src="<?php echo Mage::getBaseUrl().'/skin/image/logo/user.png' ?>" alt="User Image" class="user-image">

@@ -1,0 +1,12 @@
+<div class="order-container">
+    <?php if (!empty($this->getAllOrders())): ?>
+    <?php foreach ($this->getAllOrders() as $order): ?>
+        <?php $product = $this->getProduct($order->getProductId()); ?>
+
+    <?php endforeach; ?>
+    <button class="home-button"> <a href="<?php echo Mage::getBaseUrl().''?>">Home</a></button>
+    <?php endif; ?>
+</div>
+<?php if(1): ?>
+        <img class="empty" src="<?php echo Mage::getBaseUrl('skin/image/empty-cart.png'); ?>" alt="empty_cart_image">
+<?php endif; ?>

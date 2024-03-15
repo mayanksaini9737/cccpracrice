@@ -8,4 +8,3 @@ class Customer_Model_Customer extends Core_Model_Abstract
         $this->_collectionClass = 'Customer_Model_Resource_Collection_Customer';
     }
 }
-?>

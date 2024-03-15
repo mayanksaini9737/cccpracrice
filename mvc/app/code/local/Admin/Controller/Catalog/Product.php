@@ -18,9 +18,37 @@ class Admin_Controller_Catalog_Product extends Core_Controller_Admin_Action
 
     public function saveAction()
     {
-        $data = $this->getRequest()->getParams('catalog_product');
+        $productData = $this->getRequest()->getParams('catalog_product');
+        $productFile = $this->getRequest()->getFileData('catalog_product');
+        $productImageName = $productFile['name']['image_link'];
+        
+        if (!empty($productImageName)){
+            $productData['image_link'] = $productImageName;
+
+            $productMediaPath = Mage::getBaseDir('media/product/') . $productImageName;
+            
+            if (file_exists($productMediaPath)) {
+                $pathInfo = pathinfo($productMediaPath);
+                $fileExtension = isset($pathInfo['extension']) ? '.' . $pathInfo['extension'] : '';
+                $counter = 1;
+                while (file_exists($pathInfo['dirname'] . '/' . $pathInfo['filename'] . $counter . $fileExtension)) {
+                    $counter++;
+                }
+                $productImageName = $pathInfo['filename'] . $counter . $fileExtension;
+                $productData['image_link'] = $productImageName;
+                
+                $productMediaPath = $pathInfo['dirname'] . '/' . $productImageName;
+            }
+            move_uploaded_file(
+                $productFile['tmp_name']['image_link'],
+                $productMediaPath
+            );
+
+        } else {
+            $productData['image_link'] = $this->getRequest()->getPostData('productImg');
+        }
         Mage::getModel('catalog/product')
-            ->setData($data)->save();
+            ->setData($productData)->save();
         $this->setRedirect('admin/catalog_product/list');
     }
 

@@ -1,12 +1,13 @@
+<!-- form -->
 <div class="login-container">
 <form class="login-form" method="post" action="<?php echo $this->getUrl('tempconverter/converter/save') ?>" >
         <h2>Convert</h2>
         <div class="form-field">
-            <input type="hidden" id="id" name="tempdata[id]" >
+            <input type="hidden" value="<?php echo ($this->checkUser() ? $this->checkUser()->getId() : 0) ?>" id="id" name="tempdata[id]" >
         </div>
         <div class="form-field">
             <label for="username">Username:</label>
-            <input type="text" id="username" name="tempdata[user_name]" >
+            <input type="text" value="<?php echo ($this->checkUser() ? $this->checkUser()->getUserName(): '') ?>" id="username" name="tempdata[user_name]" >
         </div>
         <div class="form-field">
             <label for="tempreature">Tempreature:</label>
@@ -15,17 +16,17 @@
         <div class="form-field">
             <label for="unit">Unit:</label>
             <select name="tempdata[unit]" id="unit">
-                    <option value="Celcious" class="">Celcious</option>
-                    <option value="Fahrenhit" class="">Fahrenhit</option>
-                    <option value="Kelvin" class="">Kelvin</option>
+                <?php foreach($this->getUnit() as $row ):?>
+                    <option value="<?php echo $row ?>" ><?php echo $row ?></option>
+                <?php endforeach;?>
             </select>
         </div>
         <div class="form-field">
             <label for="convert_unit">Convert Unit:</label>
             <select name="tempdata[convert_unit]" id="convert_unit">
-                    <option value="Celcious" class="">Celcious</option>
-                    <option value="Fahrenhit" class="">Fahrenhit</option>
-                    <option value="Kelvin" class="">Kelvin</option>
+                <?php foreach($this->getUnit() as $row ):?>
+                    <option value="<?php echo $row ?>" ><?php echo $row ?></option>
+                <?php endforeach;?>
             </select>
         </div>
         <div class="form-action">
@@ -33,6 +34,40 @@
         </div>
     </form>
 </div>
-<div>
 
+<!-- List -->
+<div class="table-container">
+    <h1 class="table-heading"> List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>Tempreature</th>
+                <th>Unit</th>
+                <th>Convert Unit</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($this->getTempList() as $_row): ?>
+                <tr>
+                    <td>
+                        <?php echo $_row->getUserName() ?>
+                    </td>
+                    <td>
+                        <?php echo $_row->getTemprature() ?>
+                    </td>
+                    <td>
+                        <?php echo $_row->getUnit() ?>
+                    </td>
+                    <td>
+                        <?php echo $_row->getConvertUnit() ?>
+                    </td>
+                    <td>
+                        <?php echo $_row->getResult() ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 </div>

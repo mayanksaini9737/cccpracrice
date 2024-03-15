@@ -30,12 +30,13 @@
 
         <div class="form-field">
             <label for="image_link">Image Link:</label>
-            <input type="file" value="<?php echo $product->getImageLink(); ?>" name="catalog_product[image_link]"  id="image_link" >
+            <input type="file"  name="catalog_product[image_link]"  id="image_link" >
+            <input type="hidden" name="productImg" value="<?php echo $product->getImageLink(); ?>">
         </div>
 
         <div class="form-field">
             <label for="link">Link:</label>
-            <input type="file" value="<?php echo $product->getLink(); ?>" name="catalog_product[link]" id="link" >
+            <input type="file"  name="catalog_product[link]" id="link" >
         </div>
         <div class="form-field">
             <label for="category">Category:</label>

@@ -78,7 +78,8 @@ class Core_Model_Abstract
     }
     public function __unset($key)
     {
-
+        unset($this->_data[$key]);
+        return $this;
     }
     public function getData($key = null)
     {
@@ -96,7 +97,8 @@ class Core_Model_Abstract
     }
     public function removeData($key = null)
     {
-
+        unset($this->_data[$key]);
+        return $this;
     }
     protected function _beforeSave() {
 
@@ -106,7 +108,7 @@ class Core_Model_Abstract
     }
     public function save()
     {
-        $this->_beforeSave();
+        $this->_beforeSave();       
         $this->getResource()->save($this); //getResource resource no object apse
         $this->_afterSave();
         return $this;

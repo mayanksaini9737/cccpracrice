@@ -15,26 +15,32 @@ class Admin_Controller_Banner extends Core_Controller_Admin_Action
         $bannerData = $this->getRequest()->getPostData('banner');
         $bannerFile = $this->getRequest()->getFileData('banner');
         $bannerImageName = $bannerFile['name']['banner_image'];
-        $bannerData['banner_image'] = $bannerImageName;
-
-        $bannerMediaPath = Mage::getBaseDir('media/banner/') . $bannerImageName;
         
-        if (file_exists($bannerMediaPath)) {
-            $pathInfo = pathinfo($bannerMediaPath);
-            $fileExtension = isset($pathInfo['extension']) ? '.' . $pathInfo['extension'] : '';
-            $counter = 1;
-            while (file_exists($pathInfo['dirname'] . '/' . $pathInfo['filename'] . $counter . $fileExtension)) {
-                $counter++;
-            }
-            $bannerName = $pathInfo['filename'] . $counter . $fileExtension;
-            $bannerData['banner_image'] = $bannerName;
-            $bannerMediaPath = $pathInfo['dirname'] . '/' . $bannerName;
-        }
-        move_uploaded_file(
-            $bannerFile['tmp_name']['banner_image'],
-            $bannerMediaPath
-        );
+        if (!empty($bannerImageName)){
+            $bannerData['banner_image'] = $bannerImageName;
 
+            $bannerMediaPath = Mage::getBaseDir('media/banner/') . $bannerImageName;
+            
+            if (file_exists($bannerMediaPath)) {
+                $pathInfo = pathinfo($bannerMediaPath);
+                $fileExtension = isset($pathInfo['extension']) ? '.' . $pathInfo['extension'] : '';
+                $counter = 1;
+                while (file_exists($pathInfo['dirname'] . '/' . $pathInfo['filename'] . $counter . $fileExtension)) {
+                    $counter++;
+                }
+                $bannerName = $pathInfo['filename'] . $counter . $fileExtension;
+                $bannerData['banner_image'] = $bannerName;
+                $bannerMediaPath = $pathInfo['dirname'] . '/' . $bannerName;
+            }
+            move_uploaded_file(
+                $bannerFile['tmp_name']['banner_image'],
+                $bannerMediaPath
+            );
+
+        } else {
+            $bannerData['banner_image'] = $this->getRequest()->getPostData('bannerImg');
+        }
+        
         Mage::getModel('banner/banner')
             ->setData($bannerData)->save();
 

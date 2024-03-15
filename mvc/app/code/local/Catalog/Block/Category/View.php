@@ -1,26 +1,21 @@
 <?php
 class Catalog_Block_Category_View extends Core_Block_Template
 {
-    protected $_category = null;
-    protected $_categoryId = null;
     public function __construct()
     {
         $this->setTemplate('catalog/category/view.phtml');
     }
-    public function init()
-    {
-        $categoryId = $this->getData('categoryId');
-        if ($categoryId) {
-            $this->_categoryId = $categoryId;
-        }
-    }
 
     public function getCategory()
     {
-        if (isset($this->_categoryId)) {
+        $categoryId = $this->getRequest()->getParams('id');
+        if (empty($categoryId)) {
+            return Mage::getModel('catalog/product')
+                ->getCollection();
+        } else {
             return Mage::getModel('catalog/product')
                 ->getCollection()
-                ->addFieldToFilter('category_id', $this->_categoryId)
+                ->addFieldToFilter('category_id', $categoryId)
                 ->addFieldToFilter('status', '1');
         }
     }

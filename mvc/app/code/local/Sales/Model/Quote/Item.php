@@ -74,7 +74,6 @@ class Sales_Model_Quote_Item extends Core_Model_Abstract
             ->addFieldToFilter('quote_id', $quote->getId())
             ->getFirstItem()
         ;
-        // print_r($item);
         
         if ($item->getId()) {
             $item->delete();

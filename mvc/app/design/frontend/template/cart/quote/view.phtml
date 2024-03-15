@@ -1,0 +1,26 @@
+<?php $totalPrice = 0; ?>
+<div class="product-container">
+    <?php if (!empty($this->getQuoteItems())): ?>
+    <?php foreach ($this->getQuoteItems() as $item): ?>
+        <?php $product = $item->getProduct($item);
+            $rowTotal= $product->getPrice() * $item->getQty();
+            $totalPrice += $rowTotal;
+            ?> 
+        <div class="product-card">
+        <a href="<?php echo Mage::getBaseUrl().'/sales/quote/delete?product_id='. $product->getProductId(); ?>" class="delete-button">&#9932;</a>
+            <img src="<?php echo Mage::getBaseUrl().'/media/product/'. $product->getImageLink(); ?>" alt="Product Image" class="product-image">
+            <h3 class="product-title"> <?php echo $product->getName(); ?> </h3>
+            <p class="product-detail">
+                <span class="quantity">Quantity: <?php echo $item->getQty(); ?></span>
+                <span class="price"> &#8377; <?php echo $rowTotal; ?></span>
+            </p>
+        <a href="<?php echo Mage::getBaseUrl().'/cart/quote_item/view?product_id='. $product->getProductId(); ?>" class="view-button">View</a>
+        </div>
+    <?php endforeach; ?>
+    <button class="total-price-button"> <a href="<?php echo Mage::getBaseUrl().'/cart/checkout/index'?>">Checkout: &#8377;<?php echo $totalPrice; ?></a></button>
+    <?php endif; ?>
+</div>
+
+<?php if(empty($this->getQuoteItems())): ?>
+        <img class="empty" src="<?php echo Mage::getBaseUrl('skin/image/empty-cart.png'); ?>" alt="empty_cart_image">
+<?php endif; ?>

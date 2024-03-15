@@ -12,6 +12,7 @@
         <?php if($banner->getBannerImage()): ?>
             <div>   
                 <img src="<?php echo $banner->getBannerPath() ?>" class="banner-image" alt="Banner Image">
+                <input type="hidden" value="<?php echo $banner->getBannerImage(); ?>" id="banner image" name="bannerImg">
             </div>
         <?php endif; ?>
         <div class="form-field">
