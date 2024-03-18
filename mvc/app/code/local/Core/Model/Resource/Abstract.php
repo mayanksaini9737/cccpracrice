@@ -17,7 +17,6 @@ class Core_Model_Resource_Abstract
     public function load($id, $column = null)
     {
         $sql = "SELECT * FROM {$this->_tableName} WHERE {$this->_primaryKey}= '{$id}' LIMIT 1";
-        
         return $this->getAdapter()->fetchRow($sql);
     }
     public function save(Core_Model_Abstract $abstract)

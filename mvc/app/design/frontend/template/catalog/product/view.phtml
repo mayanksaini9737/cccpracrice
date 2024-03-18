@@ -6,6 +6,7 @@
         <h2><?php echo $product->getName(); ?></h2>
         <p><strong>Color:</strong><?php echo $product->getColor(); ?></p>
         <p><strong>Size:</strong><?php echo $product->getSize(); ?></p>
+        <p><strong>Available quantity:</strong><?php echo $product->getInventory(); ?></p>
         <p><strong>Description:</strong><?php echo $product->getDescription(); ?></p>
         <p><strong>Price:</strong><?php echo $product->getPrice(); ?></p>
         <form action="<?php echo Mage::getBaseUrl().'/sales/quote/add' ?>" method="post">

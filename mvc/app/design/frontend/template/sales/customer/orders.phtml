@@ -1,0 +1,19 @@
+<h2 class="title" >Orders</h2>
+<div class="orderbox">
+    <?php foreach ($this->getAllOrders() as $order) :?>    
+        <?php foreach ($this->getOrderedProduct($order->getOrderId()) as $item) :?>
+            <div class="order-card">
+                <?php 
+                    // echo Mage::getBaseUrl('media/product/'. $this->getProductImage($item->getProductId()));
+                ?>
+                <img class="product-image" src="<?php echo Mage::getBaseUrl('media/product/'. $this->getProductImage($item->getProductId())); ?>" alt="Product Image">
+                <div class="order-details">
+                    <p class="product-name"><?php echo $item->getProductName() ?></p>
+                    <p class="color">Color: <span class="color-box" style="background-color: <?php echo $item->getProductColor(); ?>;"></span></p>
+                    <p class="quantity">Quantity: <?php echo $item->getQty() ?></p>
+                    <p class="total">Total: <?php echo $item->getRowTotal() ?></p>
+                </div>
+            </div>
+        <?php endforeach;?> 
+    <?php endforeach;?> 
+</div>

@@ -46,13 +46,16 @@ class Customer_Controller_Account extends Core_Controller_Front_Action
         $loginForm = $layout->createBlock('customer/account_login');
         $child->addChild('loginForm', $loginForm);
         $layout->toHtml();
+
         if ($this->getRequest()->isPost()) {
             $loginCredentials = $this->getRequest()->getParams('login');
             $email = $loginCredentials['email'];
             $password = $loginCredentials['password'];
-            $customerCollection = Mage::getModel('customer/customer')->getCollection();
-            $customerCollection->addFieldToFilter('customer_email', $email);
-            $customerCollection->addFieldToFilter('password', $password);
+
+            $customerCollection = Mage::getModel('customer/customer')->getCollection()
+                ->addFieldToFilter('customer_email', $email)
+                ->addFieldToFilter('password', $password);
+
             $count = 0;
             $customerId = 0;
             foreach ($customerCollection->getData() as $row) {
@@ -62,6 +65,7 @@ class Customer_Controller_Account extends Core_Controller_Front_Action
             if ($count) {
                 Mage::getSingleton('core/session')
                     ->set('logged_in_customer_id', $customerId);
+                Mage::getModel('sales/quote')->initQuote();
                 $this->setRedirect('customer/account/dashboard');
             } else {
                 $this->setRedirect('customer/account/login');

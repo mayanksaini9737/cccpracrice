@@ -1,6 +1,7 @@
 <?php 
 class Sales_Model_Quote_Item extends Core_Model_Abstract
 { 
+    protected $product = null;
     public function init() 
     {
         $this->_modelClass = 'sales/quote_item';
@@ -9,15 +10,19 @@ class Sales_Model_Quote_Item extends Core_Model_Abstract
     }
     public function getProduct()
     {
-        return Mage::getModel('catalog/product')->load($this->getProductId());
+        if (is_null($this->product)){
+            $this->product = Mage::getModel('catalog/product')->load($this->getProductId());
+        }
+        return $this->product; 
     }
 
     protected function _beforeSave()
     {
         if ($this->getProductId()) {
+
             $price = $this->getProduct()->getPrice();
-            $this->addData('price', $price);
-            $this->addData('row_total', $price * $this->getQty());
+            $this->addData('price', $price)
+                ->addData('row_total', $price * $this->getQty());
         }
     }
 
@@ -32,16 +37,22 @@ class Sales_Model_Quote_Item extends Core_Model_Abstract
         if ($item) {
             $qty = $qty + $item->getQty();
         }
+
+
         $this->setData(
             [
                 'quote_id' => $quote->getId(),
                 'product_id' => $productId,
+                // 'customer_id'=>$customerId,
                 'qty' => $qty,
             ]
         );
+        print_r($this);
         if ($item) {
             $this->setId($item->getId());
         }
+        // print_r($this);
+        // die;
         $this->save();
         return $this;
     }

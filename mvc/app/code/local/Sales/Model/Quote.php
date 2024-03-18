@@ -9,15 +9,26 @@ class Sales_Model_Quote extends Core_Model_Abstract
     }
     public function initQuote()
     {
-        $quoteId = Mage::getSingleton("core/session")->get("quote_id");
+        $quoteId = Mage::getSingleton('core/session')->get("quote_id");
+        $customerId = Mage::getSingleton('core/session')->get('logged_in_customer_id');
+        $existingQuote = Mage::getModel('sales/quote')->getCollection()
+            ->addFieldToFilter('customer_id', $customerId)
+            ->addFieldToFilter('order_id', 0)
+            ->getFirstItem();
         if(!$quoteId){
-            $quote = Mage::getModel("sales/quote")
-                ->setData(["tax_percent" => 8, "grand_total" => 0])
-                ->save();
-            Mage::getSingleton("core/session")->set("quote_id", $quote->getId());
-            $quoteId = $quote->getId();
-            $this->load($quoteId);
-        } else{
+            if ($existingQuote){
+                Mage::getSingleton('core/session')->set('quote_id', $existingQuote->getId());
+                $this->load($existingQuote->getId());
+            }
+            else {
+                $quote = Mage::getModel("sales/quote")
+                    ->setData(["tax_percent" => 8, "grand_total" => 0])
+                    ->save();
+                Mage::getSingleton('core/session')->set("quote_id", $quote->getId());
+                $quoteId = $quote->getId();
+                $this->load($quoteId);
+            }
+        } else {
             $this->load($quoteId);
         }
         return $this;
@@ -32,14 +43,16 @@ class Sales_Model_Quote extends Core_Model_Abstract
     protected function _beforeSave()
     {
         $grandTotal = 0;
-        foreach ($this->getItemCollection() as $_item) {
-            $grandTotal += (int)$_item->getRowTotal();
+        $customerId = Mage::getSingleton('core/session')->get('logged_in_customer_id');
+        foreach ($this->getItemCollection() as $item) {
+            $grandTotal += (int)$item->getRowTotal();
         }
         if ($this->getTaxPercent()) {
             $tax = round($grandTotal / $this->getTaxPercent(), 2);
             $grandTotal = $grandTotal + $tax;
         }
-        $this->addData('grand_total', $grandTotal);
+        $this->addData('grand_total', $grandTotal)
+            ->addData('customer_id', $customerId);
     }
 
     public function addProduct($request)
@@ -124,10 +137,12 @@ class Sales_Model_Quote extends Core_Model_Abstract
             return Mage::getModel('sales/order')
                 ->setData($this->getData())
                 ->removeData('quote_id')
+                ->removeData('customer_id')
                 ->removeData('payment_id')
                 ->removeData('shipping_id')
                 ->removeData('order_id')
                 ->addData('order_number', $orderNumber)
+                ->addData('status', 'Pending')
                 ->save();
         }
     }
@@ -135,11 +150,14 @@ class Sales_Model_Quote extends Core_Model_Abstract
     public function quoteItemToOrderItem($orderId)
     {
         if($this->getId()){
-            foreach ($this->getItemCollection() as $_item) {
+            foreach ($this->getItemCollection() as $item) {
                 Mage::getModel('sales/order_item')
-                    ->setData($_item->getData())
+                    ->setData($item->getData())
                     ->addData('order_id', $orderId)
                     ->save();
+                $product = Mage::getModel('catalog/product')->load($item->getProductId());
+                $updatedInventory = $product->getInventory() - $item->getQty();
+                $product->addData('inventory', $updatedInventory)->save();
             }
         }
     }

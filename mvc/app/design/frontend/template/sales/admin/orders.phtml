@@ -1,0 +1,18 @@
+<div class="order-container">
+    <?php if (!empty($this->getAllOrders())): ?>
+        <?php foreach ($this->getAllOrders() as $order): ?>
+            <div class="order-details">
+                <?php $orderNumber = $this->getOrderNumber($order->getOrderId()); ?>
+                <p><strong>Order Number:</strong> <?php echo $orderNumber ?></p>
+                <p><strong>Product Name:</strong> <?php echo $order->getProductName(); ?></p>
+                <p><strong>Product Price:</strong> <?php echo $order->getPrice(); ?></p>
+                <p><strong>Quantity:</strong> <?php echo $order->getQty(); ?></p>
+                <p><strong>Total:</strong> <?php echo $order->getRowTotal() ?></p>
+                <p><strong>Status:</strong> <?php echo $this->getOrderStatus($order->getOrderId()) ?></p>
+                <button class="edit-button" ><a href="<?php echo $this->getUrl('sales/admin_orders/form?order_id='.$order->getOrderId()) ?>">Edit</a></button>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>No orders found.</p>
+    <?php endif; ?>
+</div>
