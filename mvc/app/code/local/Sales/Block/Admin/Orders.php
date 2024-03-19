@@ -8,14 +8,16 @@ class Sales_Block_Admin_Orders extends Core_Block_Template
 
     public function getAllOrders()
     {
-        return Mage::getModel('sales/order_item')->getCollection()->addOrderBy('item_id DESC')->addLimit(10)->getData();
+        return Mage::getModel('sales/order')->getCollection()
+            ->addOrderBy('order_id DESC')->getData();
     }
-    public function getOrderNumber($id)
+
+    public function checkCancelRequest($orderId)
     {
-        return Mage::getModel('sales/order')->load($id)->getOrderNumber();
-    }
-    public function getOrderStatus($id)
-    {
-        return Mage::getModel('sales/order')->load($id)->getStatus();
+        return Mage::getModel('sales/order_history')->getCollection()
+            ->addFieldToFilter('order_id', $orderId)
+            ->addFieldToFilter('action_by', 0)
+            ->addFieldToFilter('to_status', 'cancel')
+            ->getFirstItem();
     }
 }

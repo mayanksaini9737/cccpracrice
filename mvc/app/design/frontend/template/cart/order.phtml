@@ -1,14 +1,12 @@
 <?php $details = $this->getOrderDetails(); ?>
 <div class="message-container">
     <div class="done-symbol">&#10004;</div>
-        <h1>Your order has been accepted!</h1>
+        <!-- <h1>Your order has been accepted!</h1> -->
         <p>We are preparing your order and it will be delivered within the specified time limit.</p>
         <div class="order-details">
         <p>Order Number: <?php echo $details['orderNum'] ?? ''; ?></p>
     </div>
     <div class="delivery-info">
-        <!-- <p>Delivery Address: 123 Main St, Cityville</p> -->
-        <p>Estimated Delivery Time: 2 days</p>
     </div>
     <p class="thank-you">Thank You for choosing our services!</p>
     <a href="<?php echo Mage::getBaseUrl(); ?>" class="home-button">Go Home</a>

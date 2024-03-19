@@ -1,18 +1,60 @@
-<div class="order-container">
-    <?php if (!empty($this->getAllOrders())): ?>
+<div class="table-container">
+    <h2 class="table-heading">Order List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Order Number</th>
+                <th>Total Amount:</th>
+                <th>Status</th>
+                <th class="update-th" >Update Status</th>
+                <th>Cancel Request</th>
+            </tr>
+        </thead>
+        <tbody>
         <?php foreach ($this->getAllOrders() as $order): ?>
-            <div class="order-details">
-                <?php $orderNumber = $this->getOrderNumber($order->getOrderId()); ?>
-                <p><strong>Order Number:</strong> <?php echo $orderNumber ?></p>
-                <p><strong>Product Name:</strong> <?php echo $order->getProductName(); ?></p>
-                <p><strong>Product Price:</strong> <?php echo $order->getPrice(); ?></p>
-                <p><strong>Quantity:</strong> <?php echo $order->getQty(); ?></p>
-                <p><strong>Total:</strong> <?php echo $order->getRowTotal() ?></p>
-                <p><strong>Status:</strong> <?php echo $this->getOrderStatus($order->getOrderId()) ?></p>
-                <button class="edit-button" ><a href="<?php echo $this->getUrl('sales/admin_orders/form?order_id='.$order->getOrderId()) ?>">Edit</a></button>
-            </div>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <p>No orders found.</p>
-    <?php endif; ?>
+                <tr>
+                    <td>
+                        <?php echo $order->getOrderNumber() ?>
+                    </td>
+                    <td>
+                        <?php echo $order->getGrandTotal(); ?> INR
+                    </td>
+                    <td>
+                        <?php echo  $order->getStatus() ?>
+                    </td>
+                    <td class="form-td">
+                        <form action="<?php echo $this->getUrl('sales/admin_orders/save') ?>" method="post">
+                            <input type="hidden" value="<?php echo $order->getId() ?>" name="order[order_id]" >
+                            <div class="form-field">
+                                <label for="status">Status:</label>
+                                <select id="status" name="order[status]" >
+                                    <option value="pending" <?php if($order->getStatus()=="pending"){echo 'selected';} ?> >Pending</option>
+                                    <option value="confirmed" <?php if($order->getStatus()=="confirmed"){echo 'selected';} ?>>Confirmed</option>
+                                    <option value="shipped" <?php if($order->getStatus()=="shipped"){echo 'selected';} ?>>Shipped</option>
+                                    <option value="delivered" <?php if($order->getStatus()=="delivered"){echo 'selected';} ?>>Delivered</option>
+                                    <option value="cancel" <?php if($order->getStatus()=="cancel"){echo 'selected';} ?>>Cancel</option>
+                                    <option value="declined" <?php if($order->getStatus()=="declined"){echo 'selected';} ?>>Declined</option>
+                                    <option value="refunded" <?php if($order->getStatus()=="refunded"){echo 'selected';} ?>>Refunded</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <button type="submit">Update Status</button>
+                            </div>
+                        </form>
+                    </td>
+                    <?php 
+                        $checkRequest = $this->checkCancelRequest($order->getId())
+                    ?>
+                    <td>
+                        <?php if(!is_null($checkRequest)): ?>
+                            <button>Accept</button>
+                            <button>Decline</button>
+                        <?php else: ?>
+                            empty
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 </div>

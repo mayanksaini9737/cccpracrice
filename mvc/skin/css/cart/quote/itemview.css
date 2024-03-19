@@ -36,7 +36,7 @@ p {
     margin: 10px 0;
 }
 
-label {
+.quantity-label {
     display: block;
     margin-top: 10px;
     color: #333;

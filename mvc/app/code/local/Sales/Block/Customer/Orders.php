@@ -23,4 +23,9 @@ class Sales_Block_Customer_Orders extends Core_Block_Template
             ->getCollection()->addFieldToFilter('product_id', $productId)->getFirstItem()->getImageLink();
     }
     
+    public function getOrderStatus($orderId)
+    {
+        return Mage::getModel('sales/order')->getCollection()
+            ->addFieldToFilter('order_id', $orderId)->getFirstItem()->getStatus();
+    }
 }

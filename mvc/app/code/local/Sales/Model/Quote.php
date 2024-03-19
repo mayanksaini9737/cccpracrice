@@ -13,6 +13,7 @@ class Sales_Model_Quote extends Core_Model_Abstract
         $customerId = Mage::getSingleton('core/session')->get('logged_in_customer_id');
         $existingQuote = Mage::getModel('sales/quote')->getCollection()
             ->addFieldToFilter('customer_id', $customerId)
+            ->addOrderBy('order_id DESC')
             ->addFieldToFilter('order_id', 0)
             ->getFirstItem();
         if(!$quoteId){
@@ -22,8 +23,9 @@ class Sales_Model_Quote extends Core_Model_Abstract
             }
             else {
                 $quote = Mage::getModel("sales/quote")
-                    ->setData(["tax_percent" => 8, "grand_total" => 0])
-                    ->save();
+                ->setData(["tax_percent" => 8, "grand_total" => 0])
+                ->save();
+
                 Mage::getSingleton('core/session')->set("quote_id", $quote->getId());
                 $quoteId = $quote->getId();
                 $this->load($quoteId);
@@ -117,6 +119,7 @@ class Sales_Model_Quote extends Core_Model_Abstract
             $this->quoteAddToOrderAdd($order->getId());
             $payment = $this->quotePaymentToOrderPayment($order->getId());
             $shipping = $this->quoteShippingToOrderShipping($order->getId());
+            $this->orderHistory($order->getId());
 
             $order->addData('payment_id', $payment->getId())
                 ->addData('shipping_id', $shipping->getId())
@@ -195,6 +198,20 @@ class Sales_Model_Quote extends Core_Model_Abstract
                     ->setData($quateShipping->getData())
                     ->addData('order_id', $orderId)
                     ->save();
+        }
+    }
+
+    public function orderHistory($orderId){
+        if($this->getId()){
+            $history = Mage::getModel('sales/order_history')
+                ->setData(
+                    [
+                        'order_id'=>$orderId,
+                        'to_status'=> 'pending',
+                        'action_by'=> 0
+                    ]
+                );
+            $history->save();
         }
     }
 }
