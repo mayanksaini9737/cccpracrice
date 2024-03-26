@@ -20,11 +20,21 @@ class Core_Model_DB_Adapter
         }
         return $this->connect;
     }
+    public function execute($query)
+    {
+        $this->connect();
+        $result = mysqli_query($this->connect(), $query);
+        if ($result) {
+            return $result;
+        } else {
+            return FALSE;
+        }
+    }
     public function fetchAll($query)
     {
         $row = [];
         $this->connect();
-        $result = mysqli_query($this->connect, $query);
+        $result = $this->execute($query);
         while ($data = mysqli_fetch_assoc($result)) {
             $row[] = $data;
         }
@@ -42,7 +52,7 @@ class Core_Model_DB_Adapter
     {
         $row = [];
         $this->connect();
-        $result = mysqli_query($this->connect, $query);
+        $result = $this->execute($query);
         while ($data = mysqli_fetch_assoc($result)) {
             $row = $data;
         }
@@ -51,7 +61,7 @@ class Core_Model_DB_Adapter
     public function insert($query)
     {
         $this->connect();
-        $result = mysqli_query($this->connect(), $query);
+        $result = $this->execute($query);
         if ($result) {
             return mysqli_insert_id($this->connect());
         } else {
@@ -61,7 +71,7 @@ class Core_Model_DB_Adapter
     public function update($query)
     {
         $this->connect();
-        $result = mysqli_query($this->connect(), $query);
+        $result = $this->execute($query);
         if ($result) {
             return TRUE;
         } else {
@@ -71,7 +81,7 @@ class Core_Model_DB_Adapter
     public function delete($query)
     {
         $this->connect();
-        $result = mysqli_query($this->connect(), $query);
+        $result = $this->execute($query);
         if ($result) {
             return TRUE;
         } else {

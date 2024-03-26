@@ -8,12 +8,13 @@ class Sales_Model_Quote_Payment extends Core_Model_Abstract
         $this->_collectionClass = 'Sales_Model_Resource_Collection_Quote_Payment';
     }
 
-    public function savePayment(Sales_Model_Quote $quote, $paymentData)
+    public function savePayment(Sales_Model_Quote $quote, $paymentMethod, $cardNumber=0)
     {
         $this->setData(
             [
-                'payment_method' => $paymentData,
-                'quote_id' => $quote->getId()
+                'quote_id' => $quote->getId(),
+                'payment_method' => $paymentMethod,
+                'card_number' => $cardNumber
             ]
         );
         

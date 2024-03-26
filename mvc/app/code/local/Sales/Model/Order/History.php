@@ -1,6 +1,9 @@
 <?php 
 class Sales_Model_Order_History extends Core_Model_Abstract
 {
+    const DEFAULT_ORDER_STATUS = 1; 
+    const DEFAULT_ORDER_STATUS_TEXT = 'Pending';
+
     public function init() 
     {
         $this->_modelClass = 'sales/order_history';

@@ -1,6 +1,18 @@
 <?php
 class Sales_Model_Quote extends Core_Model_Abstract
 {
+    const PAYMENT_METHODS = [
+        'cod'=>'Cash On Delivery',
+        'upi'=>'UPI',
+        'credit_card'=>'Credit Card',
+        'debit_card'=>'Debir Card',
+        'emi'=>'EMI'
+    ];
+    const SHIPPING_METHODS = [
+        'normal'=>'Normal',
+        'sameday'=>'Same Day Delivery',
+        'in-store'=>'In-store Pickup'
+    ];
     public function init()
     {
         $this->_modelClass = 'sales/quote';
@@ -13,7 +25,7 @@ class Sales_Model_Quote extends Core_Model_Abstract
         $customerId = Mage::getSingleton('core/session')->get('logged_in_customer_id');
         $existingQuote = Mage::getModel('sales/quote')->getCollection()
             ->addFieldToFilter('customer_id', $customerId)
-            ->addOrderBy('order_id DESC')
+            ->addOrderBy('order_id', 'DESC')
             ->addFieldToFilter('order_id', 0)
             ->getFirstItem();
         if(!$quoteId){
@@ -88,13 +100,16 @@ class Sales_Model_Quote extends Core_Model_Abstract
         if ($this->getId()) {
             Mage::getModel('sales/quote_customer')->saveAddress($this, $addressData);
         }
+        
+        Mage::getModel('customer/address')->savingCustomerAddress($addressData);
+
         return $this;
     }
     public function addQuotePayment($paymentData)
     {
         $this->initQuote();
         if ($this->getId()) {
-            $payment = Mage::getModel('sales/quote_payment')->savePayment($this, $paymentData);
+            $payment = Mage::getModel('sales/quote_payment')->savePayment($this, $paymentData['payment_method'], $paymentData['card_number']);
         }
         $this->addData('payment_id', $payment->getId())->save();
         return $this;
@@ -108,6 +123,22 @@ class Sales_Model_Quote extends Core_Model_Abstract
         $this->addData('shipping_id', $shipping->getId())->save();
         return $this;
     }
+
+    function getOrderNumber() {
+        $prefix = "ORD";
+        $checkOrderTable = Mage::getModel('sales/order')
+            ->getCollection()->addOrderBy('order_id', 'DESC')
+            ->addLimit(1)->getFirstItem();
+        if (!empty($checkOrderTable)) {
+            $lastOrderNumber = $checkOrderTable->getOrderNumber();
+            $lastNumber = substr($lastOrderNumber, strlen($prefix));
+            $nextNumber = $lastNumber + 1;
+            $nextOrderNumber = $prefix . $nextNumber;
+        } else {
+            $nextOrderNumber = $prefix . "1";
+        }
+        return $nextOrderNumber;
+    }
     
     public function convert()
     {
@@ -117,9 +148,9 @@ class Sales_Model_Quote extends Core_Model_Abstract
             $order = $this->quoteToOrder();
             $this->quoteItemToOrderItem($order->getId());
             $this->quoteAddToOrderAdd($order->getId());
+            $this->orderHistory($order->getId());
             $payment = $this->quotePaymentToOrderPayment($order->getId());
             $shipping = $this->quoteShippingToOrderShipping($order->getId());
-            $this->orderHistory($order->getId());
 
             $order->addData('payment_id', $payment->getId())
                 ->addData('shipping_id', $shipping->getId())
@@ -135,7 +166,8 @@ class Sales_Model_Quote extends Core_Model_Abstract
 
     public function quoteToOrder()
     {
-        $orderNumber = time();
+        $orderNumber = $this->getOrderNumber();
+        $defultStatus = Sales_Model_Order_History::DEFAULT_ORDER_STATUS;
         if ($this->getId()){
             return Mage::getModel('sales/order')
                 ->setData($this->getData())
@@ -145,7 +177,7 @@ class Sales_Model_Quote extends Core_Model_Abstract
                 ->removeData('shipping_id')
                 ->removeData('order_id')
                 ->addData('order_number', $orderNumber)
-                ->addData('status', 'Pending')
+                ->addData('status', 'pending')
                 ->save();
         }
     }

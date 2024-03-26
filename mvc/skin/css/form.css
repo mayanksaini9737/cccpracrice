@@ -33,6 +33,7 @@ label {
     display: block;
     margin-bottom: 5px;
     color: #333;
+    font-weight: 600;
 }
 
 input {
@@ -41,6 +42,21 @@ input {
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 3px;
+}
+
+option {
+    font-weight: 600;
+    color: #555;
+    background-color: #fff; /* Background color */
+    padding: 10px;
+}
+
+option:hover {
+    background-color: #f0f0f0; /* Hover background color */
+}
+
+option:checked {
+    background-color: #c6c6c6; /* Selected background color */
 }
 
 .form-action {
@@ -53,8 +69,16 @@ button {
     color: #fff;
     font-weight: 700;
     border: none;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 10px;
     border-radius: 3px;
     cursor: pointer;
+}
+
+button a{
+    text-decoration: none;
+    color: white;
 }
 
 button:hover {

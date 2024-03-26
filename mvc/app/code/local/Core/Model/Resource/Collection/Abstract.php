@@ -38,9 +38,12 @@ class Core_Model_Resource_Collection_Abstract
         return $this;
     }
 
-    public function addOrderBy($orderBy)
+    public function addOrderBy($field, $direction = 'ASC')
     {
-        $this->_select['ORDER BY'] = $orderBy;
+        $this->_select['ORDER BY'][] = array(
+            'field' => $field,
+            'direction' => strtoupper($direction)
+        );
         return $this;
     }
 
@@ -94,8 +97,12 @@ class Core_Model_Resource_Collection_Abstract
         }
 
         // Add ORDER BY clause
-        if (isset($this->_select['ORDER BY'])) {
-            $sql .= " ORDER BY {$this->_select['ORDER BY']}";
+        if(isset($this->_select['ORDER BY'])){
+            $orderBy = [];
+            foreach ($this->_select['ORDER BY'] as $order) {
+                $orderBy[] = "{$order['field']} {$order['direction']}";
+            }
+            $sql .= " ORDER BY " . implode(', ', $orderBy);
         }
 
         // Add LIMIT clause
@@ -115,7 +122,8 @@ class Core_Model_Resource_Collection_Abstract
         return $this->_data;
     }
 
-    public function getFirstItem() {
+    public function getFirstItem() 
+    {
         $this->load();
         return (isset($this->_data[0])) ? $this->_data[0] : null;
     }

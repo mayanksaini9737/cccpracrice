@@ -1,6 +1,6 @@
 <header class="header">
-    <a href="<?php echo Mage::getBaseUrl()?>" class="logo">
-        <img src="<?php echo Mage::getBaseUrl().'/skin/image/logo/logo.png' ?>" alt="Logo">
+    <a href="<?php echo Mage::getBaseUrl() ?>" class="logo">
+        <img src="<?php echo $this->getUrl('skin/image/logo/logo.png') ?>" alt="Logo">
         ShopNow
     </a>
     <button class="nav-toggle" aria-label="Toggle navigation">
@@ -16,21 +16,20 @@
             <li class="nav__item" id="categoryDropdown">
                 <label class="nav__link">Category</label>
                 <ul class="category-dropdown">
-                    <!-- <li><a href="<?php echo Mage::getBaseUrl().'/catalog/category/view' ?>">All</a></li> -->
-                    <li><a href="<?php echo Mage::getBaseUrl().'/catalog/category/view?id=1' ?>">Apparel</a></li>
-                    <li><a href="<?php echo Mage::getBaseUrl().'/catalog/category/view?id=2' ?>">Electronics</a></li>
-                    <li><a href="<?php echo Mage::getBaseUrl().'/catalog/category/view?id=3' ?>">Furniture</a></li>
+                    <li><a href="<?php echo $this->getUrl('catalog/category/view?id=1') ?>">Apparel</a></li>
+                    <li><a href="<?php echo $this->getUrl('catalog/category/view?id=2') ?>">Electronics</a></li>
+                    <li><a href="<?php echo $this->getUrl('catalog/category/view?id=3') ?>">Furniture</a></li>
                 </ul>
             </li>
-            <li class="nav__item"><a href="<?php echo Mage::getBaseUrl().'/cart/quote/view' ?>" class="nav__link">Cart</a></li>
-            <li class="nav__item"><a href="<?php echo Mage::getBaseUrl().'/sales/customer_orders/show' ?>" class="nav__link">Order</a></li>
+            <li class="nav__item"><a href="<?php echo $this->getUrl('cart/quote/view') ?>" class="nav__link">Cart</a></li>
+            <li class="nav__item"><a href="<?php echo $this->getUrl('customer/sales_order/show') ?>" class="nav__link">Orders</a></li>
             <li class="nav__item ">
                 <div class="logo">
-                    <img src="<?php echo Mage::getBaseUrl().'/skin/image/logo/user.png' ?>" alt="User Image" class="user-image">
+                    <img src="<?php echo $this->getUrl('skin/image/logo/user.png') ?>" alt="User Image" class="user-image">
                     <span class="nav__username"><?php echo $this->getUser(); ?></span>
                 </div>
             </li>
-            <li class="nav__item"><a href="<?php echo Mage::getBaseUrl().'/customer/account/logout' ?>" class="nav__link login-button">Logout</a></li>
+            <li class="nav__item"><a href="<?php echo $this->getUrl('customer/account/logout') ?>" class="nav__link login-button">Logout</a></li>
         </ul>
     </nav>
 </header>

@@ -23,10 +23,10 @@
             <?php foreach ($this->getProductList() as $_product): ?>
                 <tr>
                     <td>
-                        <?php echo $_product->getName() ?>
+                        <?php echo $_product->getSku() ?>
                     </td>
                     <td>
-                        <?php echo $_product->getSku() ?>
+                        <?php echo $_product->getName() ?>
                     </td>
                     <td>
                         <?php echo $_product->getColor() ?>

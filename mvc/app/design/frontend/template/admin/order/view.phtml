@@ -1,0 +1,117 @@
+<div class="container">
+    <div class="customer-details-card">
+        <?php $customer = $this->getCustomerDetails(); ?>
+        <h2>Customer Details</h2>
+        <p><strong>Customer ID:<?php echo $customer->getId() ?></strong></p>
+        <p><strong>Email:</strong><?php echo $customer->getCustomerEmail() ?></p>
+        <p><strong>Name:</strong> <?php echo ucfirst($customer->getFirstName()). ' '. ucfirst($customer->getLastName()) ?></p>
+    </div>
+
+    <div class="main-content">
+        <div class="sidebar">
+
+            <div class="toggle-button" id="address-toggle">Address Details</div>
+            <div class="address-details card">
+                <?php $address = $this->getAddressDetails() ?>
+                <h2>Billing Address</h2>
+                <p><strong>Address:</strong><?php echo $address->getBillingAddress() ?></p>
+                <p><strong>City:</strong><?php echo $address->getBillingCity() ?></p>
+                <p><strong>Region:</strong><?php echo $address->getBillingRegion() ?></p>
+                <p><strong>Country:</strong><?php echo $address->getBillingCountry() ?></p>
+                <p><strong>Phone:</strong><?php echo $address->getBillingPhone() ?></p>
+                <h2>Shipping Address</h2>
+                <p><strong>Address:</strong><?php echo $address->getShippingAddress() ?></p>
+                <p><strong>City:</strong> <?php echo $address->getShippingCity() ?></p>
+                <p><strong>Region:</strong> <?php echo $address->getShippingRegion() ?></p>
+                <p><strong>Country:</strong> <?php echo $address->getShippingCountry() ?></p>
+                <p><strong>Phone:</strong> <?php echo $address->getShippingPhone() ?></p>
+            </div>
+
+            <div class="toggle-button" id="shipping-toggle">Shipping Details</div>
+            <div class="shipping-details card">
+                <?php $shipping = $this->getShippingDetails(); ?>
+                <h2>Shipping Details</h2>
+                <p><strong>Shipping Id:</strong> <?php echo $shipping->getId() ?></p>
+                <p><strong>Shipping Method:</strong> <?php echo ucwords($shipping->getShippingMethod()) ?></p>
+            </div>
+
+            <div class="toggle-button" id="payment-toggle">Payment Details</div>
+            <div class="payment-details card">
+                <?php $payment = $this->getPaymentDetails(); ?>
+                <h2>Payment Details</h2>
+                <p><strong>Payment ID:</strong><?php echo $payment->getId() ?></p>
+                <p><strong>Payment Method:</strong> <?php echo ucwords(str_replace('_',' ', $payment->getPaymentMethod())) ?></p>
+                <p><strong>Card Number:</strong> <?php echo $payment->getCardNumber() ?></p>
+            </div>
+        </div>
+
+        <div class="products card">
+            <h2> Purchased Products</h2>
+            <?php $order = $this->getOrderDetails(); ?>
+            <h3>Order Number: <?php echo $order->getOrderNumber() ?></h3>
+            <h3>Status: <?php echo ucwords(str_replace('_', ' ', $order->getStatus())) ?></h3>
+            <div class="order-items">
+                <?php foreach($this->getOrderItems() as $item): ?> 
+                <?php $product = $item->getProduct() ?> 
+                    <div class="product">
+                        <img src="<?php echo $this->getUrl('media/product/'. $product->getImageLink())  ?>" alt="Product Img">
+                        <div>
+                            <p><strong>SKU:</strong><?php echo $product->getSku() ?></p>
+                            <p><strong>Product Name:</strong><?php echo $item->getProductName() ?></p>
+                            <p><strong>Quantity:</strong><?php echo $item->getQty() ?></p>
+                            <p><strong>Price:</strong><?php echo $item->getPrice() ?></p>
+                            <p><strong>Row Total:</strong><?php echo $item->getRowTotal() ?></p>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function initializeToggleButtons() {
+    console.log("Initializing toggle buttons...");
+    document.getElementById('shipping-toggle').addEventListener('click', function() {
+        toggleDetails('shipping-details');
+    });
+
+    document.getElementById('address-toggle').addEventListener('click', function() {
+        toggleDetails('address-details');
+    });
+
+    document.getElementById('payment-toggle').addEventListener('click', function() {
+        toggleDetails('payment-details');
+    });
+}
+
+function toggleDetails(className) {
+    var details = document.querySelector('.' + className);
+    var allDetails = document.querySelectorAll('.shipping-details, .address-details, .payment-details');
+
+    var isOpen = false;
+
+    // Check if any detail is open
+    allDetails.forEach(function(item) {
+        if (item.style.display !== 'none' && item !== details) {
+            isOpen = true;
+        }
+    });
+
+    // Close all details if any is open; otherwise, toggle the clicked detail
+    if (isOpen) {
+        allDetails.forEach(function(item) {
+            item.style.display = 'none';
+        });
+    } else {
+        if (details.style.display === 'none' || details.style.display === '') {
+            details.style.display = 'block';
+        } else {
+            details.style.display = 'none';
+        }
+    }
+}
+
+initializeToggleButtons();
+
+</script>

@@ -19,4 +19,5 @@ class Tempconverter_Controller_Converter extends Core_Controller_Front_Action
         Mage::getModel('tempconverter/converter')->addTemp($requestData);
         $this->setRedirect('tempconverter/converter/form');
     }
+
 }

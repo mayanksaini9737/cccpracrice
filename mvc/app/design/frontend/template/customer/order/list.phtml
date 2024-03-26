@@ -1,0 +1,82 @@
+<?php if (!empty($this->getAllOrders())): ?>
+    <h2 class="title">Orders</h2>
+    <div class="orderbox">
+        <?php foreach ($this->getAllOrders() as $order) :?>    
+            <?php foreach ($this->getOrderedProduct($order->getOrderId()) as $item) :?>
+                <div class="order-card">
+                    <img class="product-image" src="<?php echo Mage::getBaseUrl('media/product/'. $this->getProductImage($item->getProductId())); ?>" alt="Product Image">
+                    <div class="order-details">
+                        <p class="product-name"><?php echo $item->getProductName() ?></p>
+                        <p class="color">Color: <span class="color-box" style="background-color: <?php echo $item->getProductColor(); ?>;"></span></p>
+                        <p class="quantity">Quantity: <?php echo $item->getQty() ?></p>
+                        <p class="total">Total: <?php echo $item->getRowTotal() ?></p>
+                        <?php $status = $this->getOrderStatus($order->getOrderId()); ?>
+                        <?php $historyStatus = $this->checkStatusHistory($order->getOrderId()) ?>
+                        <?php if ($status == 'pending' || $status == 'confirmed' || $status == 'shipped' || $status == 'out_for_delivery' || $status == 'delivered'): ?>
+                            <p>Status:</p>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" data-status="<?php echo $status; ?>"></div>
+                                <span class="status-badge"><?php echo ucwords(str_replace('_', ' ', $status)); ?></span>
+                            </div>
+                        <?php else: ?>
+                            <p>Status: <?php echo $status; ?></p> 
+                        <?php endif; ?>
+                        
+                        <?php if (($status == 'confirmed') && $historyStatus !== 'cancel_requested' && $historyStatus !== 'cancel_req_declined' ): ?>
+                            <form action="<?php echo $this->getUrl('customer/sales_order/cancelReq') ?>" method="post">
+                                <input type="hidden" value="<?php echo $order->getOrderId()?>" name="cancel[order_id]">
+                                <input type="hidden" value="cancel_requested" name="cancel[to_status]">
+                                <input type="submit" value="Cancel" class="cancel-button">
+                            </form>
+                        <?php elseif($historyStatus == 'cancel_requested'): ?>
+                            <p class="cancel-msg" >Cancellection request processed!</p>
+                        <?php elseif($historyStatus == 'cancel_req_declined'): ?>
+                            <p class="cancel-msg" >Sorry, Not possible to cancel order!</p>
+                        <?php elseif($historyStatus == 'canceled'): ?>
+                            <p class="cancel-msg" >Your order has been cancelled!</p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endforeach;?>     
+        <?php endforeach;?> 
+    </div>
+    <?php else: ?>
+        <div class="orders-empty" >
+            <img class="empty" src="<?php echo Mage::getBaseUrl('skin/image/orders_empty.png'); ?>" alt="empty_cart_image">
+            <h3>It looks like you haven't placed any orders yet.</h3>
+            <h3> Start shopping now!</h3>
+        </div>
+<?php endif; ?>
+<script>
+    function calculateWidth(status) {
+        switch (status) {
+            case 'pending':
+                return 0; 
+            case 'confirmed':
+                return 20;
+            case 'shipped':
+                return 50; 
+            case 'out_for_delivery':
+                return 80;
+            case 'delivered':
+                return 100;
+            default:
+                return 0; 
+        }
+    }
+
+    var progressBarContainers = document.querySelectorAll('.progress-bar-container');
+
+    function updateProgressBars() {
+        progressBarContainers.forEach(function (container) {
+            var progressBar = container.querySelector('.progress-bar');
+            var status = progressBar.getAttribute('data-status');
+            var width = calculateWidth(status);
+            progressBar.style.width = width + '%';
+        });
+    }
+
+    updateProgressBars();
+
+</script>
+

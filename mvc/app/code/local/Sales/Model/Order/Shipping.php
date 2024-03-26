@@ -13,4 +13,9 @@ class Sales_Model_Order_Shipping extends Core_Model_Abstract
         $this->removeData('shipping_id')
             ->removeData('quote_id');
     }
+
+    public function getShippingOptions()
+    {
+        
+    }
 }

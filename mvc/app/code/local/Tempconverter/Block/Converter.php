@@ -10,7 +10,7 @@ class Tempconverter_Block_Converter extends Core_Block_Template
     public function getTempList()
     {
         $tempCollection = Mage::getModel("tempconverter/converter")->getCollection();
-        $tempRecord = $tempCollection->addOrderBy('id DESC')->addLimit(10);
+        $tempRecord = $tempCollection->addOrderBy('id', 'DESC')->addLimit(10);
         return $tempRecord->getData();
     }
     public function getUnit(){

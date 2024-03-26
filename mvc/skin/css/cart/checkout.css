@@ -63,6 +63,7 @@ label {
 }
 
 input[type="text"],
+input[type="tel"],
 select {
     width: 100%;
     font-weight: 600;
@@ -98,4 +99,19 @@ select {
 
 .button-submit:hover {
     background-color: #45a049;
+}
+
+option {
+    font-weight: 600;
+    color: #555;
+    background-color: #fff; /* Background color */
+    padding: 10px;
+}
+
+option:hover {
+    background-color: #f0f0f0; /* Hover background color */
+}
+
+option:checked {
+    background-color: #c6c6c6; /* Selected background color */
 }

@@ -1,9 +1,9 @@
 <?php 
-class Sales_Block_Customer_Orders extends Core_Block_Template
+class Customer_Block_Sales_Orderlist extends Core_Block_Template
 {
     public function __construct()
     {
-        $this->setTemplate('sales/customer/orders.phtml');
+        $this->setTemplate('customer/order/list.phtml');
     }
 
     public function getAllOrders()
@@ -27,5 +27,12 @@ class Sales_Block_Customer_Orders extends Core_Block_Template
     {
         return Mage::getModel('sales/order')->getCollection()
             ->addFieldToFilter('order_id', $orderId)->getFirstItem()->getStatus();
+    }
+    public function checkStatusHistory($orderId)
+    {
+        return Mage::getModel('sales/order_history')->getCollection()
+            ->addFieldToFilter('order_id', $orderId)->addOrderBy('history_id', 'DESC')
+            ->getFirstItem()
+            ->getToStatus();
     }
 }

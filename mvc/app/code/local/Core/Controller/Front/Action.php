@@ -9,7 +9,7 @@ class Core_Controller_Front_Action
         $this->init();
         $layout = $this->getLayout();
         $layout->getChild('head')->addCss('header.css');
-        $layout->getChild('head')->addCss('header.js');
+        $layout->getChild('head')->addJs('header.js');
         $layout->getChild('head')->addCss('footer.css');
         
     }

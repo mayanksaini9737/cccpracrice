@@ -29,4 +29,9 @@ class Catalog_Model_Product extends Core_Model_Abstract
             return $this->_categoryNames[$this->getCategoryId()];
         }
     }
+
+    public function getProductImagePath()
+    {
+        return Mage::getBaseUrl('media/product/' . $this->getImageLink());
+    }
 }

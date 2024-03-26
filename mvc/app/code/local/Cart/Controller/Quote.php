@@ -2,7 +2,6 @@
 class Cart_Controller_Quote extends Core_Controller_Front_Action{
     public function viewAction()
     {   
-        Mage::getModel('sales/quote')->initQuote();
         $layout = $this->getLayout();
         $layout->getChild('head')->addCss('cart/quote/view.css');
         $child = $layout->getChild('content');

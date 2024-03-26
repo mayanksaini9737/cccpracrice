@@ -28,8 +28,8 @@ class Sales_Controller_Quote extends Core_Controller_Front_Action
     public function checkoutAction()
     {
         $addressData = $this->getRequest()->getPostData('address');
-        $paymentData = $this->getRequest()->getPostData('payment_method');
-        $shippingData = $this->getRequest()->getPostData('shipping_method');
+        $paymentData = $this->getRequest()->getPostData('payment');
+        $shippingData = $this->getRequest()->getPostData('shipping');
 
         $salesQuate = Mage::getSingleton('sales/quote')->addQuoteAddress($addressData)
             ->addQuotePayment($paymentData)->addQuoteShipping($shippingData);

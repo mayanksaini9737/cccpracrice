@@ -10,6 +10,7 @@ class Core_Controller_Admin_Action extends Core_Controller_Front_Action
         $layout->getChild('header')->setTemplate('page/admin/header.phtml');
         $layout->getChild('footer')->setTemplate('page/admin/footer.phtml');
         $layout->getChild('head')->addCss('header.css');
+        $layout->getChild('head')->addJs('header.js');
         $layout->getChild('head')->addCss('footer.css');
     }
     public function init()

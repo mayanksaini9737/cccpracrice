@@ -22,6 +22,11 @@
             <label for="size">Size:</label>
             <input type="text" value="<?php echo $product->getSize(); ?>" name="catalog_product[size]" id="size" required>
         </div>
+        
+        <div class="form-field">
+            <label for="inventory">Inventory:</label>
+            <input type="number" value="<?php echo $product->getInventory(); ?>" name="catalog_product[inventory]" id="inventory" required>
+        </div>
 
         <div class="form-field">
             <label for="description">Description:</label>
@@ -34,10 +39,18 @@
             <input type="hidden" name="productImg" value="<?php echo $product->getImageLink(); ?>">
         </div>
 
+        <?php if($product->getImageLink()): ?>
+            <div>   
+                <img src="<?php echo $product->getProductImagePath() ?>" class="product-image" alt="product Image">
+                <input type="hidden" value="<?php echo $product->getImageLink(); ?>" id="product image" name="productImg">
+            </div>
+        <?php endif; ?>
+
         <div class="form-field">
             <label for="link">Link:</label>
             <input type="file"  name="catalog_product[link]" id="link" >
         </div>
+
         <div class="form-field">
             <label for="category">Category:</label>
             <select name="catalog_product[category_id]" id="category">

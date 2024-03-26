@@ -77,6 +77,7 @@ class Customer_Controller_Account extends Core_Controller_Front_Action
         $customerId = Mage::getSingleton('core/session')
             ->get('logged_in_customer_id');
         if ($customerId) {
+            Mage::getModel('sales/quote')->initQuote();
             $this->setRedirect('page/index/index');
         }
     }

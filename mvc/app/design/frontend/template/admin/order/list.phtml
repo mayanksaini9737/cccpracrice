@@ -1,0 +1,73 @@
+<div class="table-container">
+    <h2 class="table-heading">Order List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Order Number</th>
+                <th>Date</th>
+                <th>Items</th>
+                <th>Total:</th>
+                <th>Status</th>
+                <th>View</th>
+                <th class="update-th" >Update Status</th>
+                <th class="update-th">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($this->getAllOrders() as $order): ?>
+                <tr>
+                    <td>
+                        <?php echo $order->getId(); ?>
+                    </td>
+                    <td>
+                        <?php echo $order->getOrderNumber(); ?>
+                    </td>
+                    <td>
+                        <?php echo $order->getDate(); ?>
+                    </td>
+                    <td>
+                        <?php echo $this->getCountOfProducts($order->getId()); ?>
+                    </td>
+                    <td>
+                        <?php echo $order->getGrandTotal(); ?> INR
+                    </td>
+                    <td>
+                        <?php $orderStatus = $order->getStatus(); echo $orderStatus; ?>
+                    </td>
+                    <td>
+                        <button class="primary-button" onclick="location.href='<?php echo $this->getUrl('admin/sales_order/view?order_id='.$order->getId()); ?>'" >View</button>
+                    </td>
+                    <td class="form-td">
+                        <form class="status-update-form" action="<?php echo $this->getUrl('admin/sales_order/save') ?>" method="post">
+                            <input type="hidden" value="<?php echo $order->getId(); ?>" name="order[order_id]" >
+                            <div class="form-field">
+                                <label for="status">Status:</label>
+                                <select name="order[status]" >
+                                    <option value="pending" <?php if($orderStatus=="pending"){echo 'selected';} ?> >Pending</option>
+                                    <option value="confirmed" <?php if($orderStatus=="confirmed"){echo 'selected';} ?>>Confirmed</option>
+                                    <option value="shipped" <?php if($orderStatus=="shipped"){echo 'selected';} ?>>Shipped</option>
+                                    <option value="out_for_delivery" <?php if($orderStatus=="out_for_delivery"){echo 'selected';} ?>>Out For Delivery</option>
+                                    <option value="delivered" <?php if($orderStatus=="delivered"){echo 'selected';} ?>>Delivered</option>
+                                    <option value="canceled" <?php if($orderStatus=="canceled"){echo 'selected';} ?>>Canceled</option>
+                                    <option value="declined" <?php if($orderStatus=="declined"){echo 'selected';} ?>>Declined</option>
+                                    <option value="refunded" <?php if($orderStatus=="refunded"){echo 'selected';} ?>>Refunded</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <button class="primary-button" type="submit">Update Status</button>
+                            </div>
+                        </form>
+                    </td>
+                    <td class="cancel-request-td" >
+                        <?php if(!is_null($this->checkCancelRequest($order->getId())) && is_null($this->checkCancelReqResponse($order->getId())) ): ?>
+                            <span class="action-text" >Cancel:</span>
+                            <button class="primary-button" onclick="location.href='<?php echo $this->getUrl('admin/sales_order/cancelAccept?order_id='.$order->getId()); ?>'" >Accept</button>
+                            <button class="cancel-decline-button" onclick="location.href='<?php echo $this->getUrl('admin/sales_order/cancelDecline?order_id='.$order->getId()); ?>'">Decline</button>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
