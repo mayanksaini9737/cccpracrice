@@ -97,4 +97,50 @@ h2 {
     text-align: center;
 }
 
+.status-update-form{
+    display: flex;
+}
 
+.status{
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+
+select {
+    width: 150px;
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 5px;
+    padding: 3px;
+}
+
+option {
+    font-weight: 600;
+    color: #555;
+    background-color: #fff;
+    padding: 10px;
+}
+
+option:hover {
+    background-color: #f0f0f0; 
+}
+
+option:checked {
+    background-color: #c6c6c6; 
+}
+button {
+    margin-left: 20px;
+    align-items: flex-end;
+    font-size: 15px;
+    border-radius: 4px;
+    color: #fff;
+    padding: 3px 6px;
+    font-weight: 600;
+    background-color: rgb(55, 52, 52);
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ffffff;
+    color: black;
+}

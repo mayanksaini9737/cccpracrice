@@ -10,7 +10,6 @@ class Admin_Block_Sales_Orderlist extends Core_Block_Template
     {
         return Mage::getModel('sales/order')->getCollection()->getData();
     }
-
     public function getCountOfProducts($orderId)
     {
         $quote = Mage::getModel('sales/quote')->getCollection()

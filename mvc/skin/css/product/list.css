@@ -40,3 +40,15 @@ th {
     background-color: #f2f2f2;
 }
 
+td a{
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    background-color: #488e31;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+td a:hover{
+    background-color: #3a6d29;
+}

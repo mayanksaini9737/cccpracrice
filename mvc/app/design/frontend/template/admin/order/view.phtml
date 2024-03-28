@@ -9,7 +9,6 @@
 
     <div class="main-content">
         <div class="sidebar">
-
             <div class="toggle-button" id="address-toggle">Address Details</div>
             <div class="address-details card">
                 <?php $address = $this->getAddressDetails() ?>
@@ -32,7 +31,7 @@
                 <?php $shipping = $this->getShippingDetails(); ?>
                 <h2>Shipping Details</h2>
                 <p><strong>Shipping Id:</strong> <?php echo $shipping->getId() ?></p>
-                <p><strong>Shipping Method:</strong> <?php echo ucwords($shipping->getShippingMethod()) ?></p>
+                <p><strong>Shipping Method:</strong> <?php echo ucwords(str_replace('_',' ', $shipping->getShippingMethod())) ?></p>
             </div>
 
             <div class="toggle-button" id="payment-toggle">Payment Details</div>
@@ -49,7 +48,28 @@
             <h2> Purchased Products</h2>
             <?php $order = $this->getOrderDetails(); ?>
             <h3>Order Number: <?php echo $order->getOrderNumber() ?></h3>
-            <h3>Status: <?php echo ucwords(str_replace('_', ' ', $order->getStatus())) ?></h3>
+            <h3 class="status" >Status: <?php echo ucwords(str_replace('_', ' ', $order->getStatus())) ?>
+                <?php $orderStatus = $order->getStatus(); ?>
+                <form class="status-update-form" action="<?php echo $this->getUrl('admin/sales_order/save') ?>" method="post">
+                    <input type="hidden" value="<?php echo $order->getId(); ?>" name="order[order_id]" >
+                    <div class="form-field">
+                        <label for="status">Status:</label>
+                        <select name="order[status]" >
+                            <option value="pending" <?php if($orderStatus=="pending"){echo 'selected';} ?> >Pending</option>
+                            <option value="confirmed" <?php if($orderStatus=="confirmed"){echo 'selected';} ?>>Confirmed</option>
+                            <option value="shipped" <?php if($orderStatus=="shipped"){echo 'selected';} ?>>Shipped</option>
+                            <option value="out_for_delivery" <?php if($orderStatus=="out_for_delivery"){echo 'selected';} ?>>Out For Delivery</option>
+                            <option value="delivered" <?php if($orderStatus=="delivered"){echo 'selected';} ?>>Delivered</option>
+                            <option value="canceled" <?php if($orderStatus=="canceled"){echo 'selected';} ?>>Canceled</option>
+                            <option value="declined" <?php if($orderStatus=="declined"){echo 'selected';} ?>>Declined</option>
+                            <option value="refunded" <?php if($orderStatus=="refunded"){echo 'selected';} ?>>Refunded</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <button class="primary-button" type="submit">Update Status</button>
+                    </div>
+                </form>
+            </h3>
             <div class="order-items">
                 <?php foreach($this->getOrderItems() as $item): ?> 
                 <?php $product = $item->getProduct() ?> 
@@ -70,48 +90,35 @@
 </div>
 
 <script>
-function initializeToggleButtons() {
-    console.log("Initializing toggle buttons...");
-    document.getElementById('shipping-toggle').addEventListener('click', function() {
-        toggleDetails('shipping-details');
-    });
+    function initializeToggleButtons() {
+        console.log("Initializing toggle buttons...");
+        document.getElementById('shipping-toggle').addEventListener('click', function() {
+            toggleDetails('shipping-details');
+        });
 
-    document.getElementById('address-toggle').addEventListener('click', function() {
-        toggleDetails('address-details');
-    });
+        document.getElementById('address-toggle').addEventListener('click', function() {
+            toggleDetails('address-details');
+        });
 
-    document.getElementById('payment-toggle').addEventListener('click', function() {
-        toggleDetails('payment-details');
-    });
-}
+        document.getElementById('payment-toggle').addEventListener('click', function() {
+            toggleDetails('payment-details');
+        });
+    }
 
-function toggleDetails(className) {
-    var details = document.querySelector('.' + className);
-    var allDetails = document.querySelectorAll('.shipping-details, .address-details, .payment-details');
+    function toggleDetails(className) {
+        var details = document.querySelector('.' + className);
+        var allDetails = document.querySelectorAll('.shipping-details, .address-details, .payment-details');
 
-    var isOpen = false;
+        var isOpen = details.style.display !== 'none';
 
-    // Check if any detail is open
-    allDetails.forEach(function(item) {
-        if (item.style.display !== 'none' && item !== details) {
-            isOpen = true;
-        }
-    });
-
-    // Close all details if any is open; otherwise, toggle the clicked detail
-    if (isOpen) {
         allDetails.forEach(function(item) {
             item.style.display = 'none';
         });
-    } else {
-        if (details.style.display === 'none' || details.style.display === '') {
+
+        if (!isOpen) {
             details.style.display = 'block';
-        } else {
-            details.style.display = 'none';
         }
     }
-}
 
-initializeToggleButtons();
-
+    initializeToggleButtons();
 </script>

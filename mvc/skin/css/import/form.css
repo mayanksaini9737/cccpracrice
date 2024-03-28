@@ -63,9 +63,9 @@ option:checked {
     text-align: center;
 }
 
-button {
+.upload-button {
     padding: 10px;
-    background-color: #4caf50;
+    background-color: #4074bc;
     color: #fff;
     font-weight: 700;
     border: none;
@@ -76,13 +76,8 @@ button {
     cursor: pointer;
 }
 
-button a{
-    text-decoration: none;
-    color: white;
-}
-
-button:hover {
-    background-color: #45a049;
+.upload-button:hover{
+    background-color: #27518c;
 }
 
 select {
@@ -91,21 +86,4 @@ select {
     box-sizing: border-box;
     border-radius: 3px;
     background-color: #fff;
-}
-
-.button2{
-    padding: 10px;
-    background-color: #0063f7;
-    color: #fff;
-    font-weight: 700;
-    border: none;
-    display: inline-block;
-    margin-left: 128px;
-    margin-bottom: 30px;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.button2:hover{
-    background-color: #0051ca;
 }

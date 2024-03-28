@@ -167,7 +167,7 @@ class Sales_Model_Quote extends Core_Model_Abstract
     public function quoteToOrder()
     {
         $orderNumber = $this->getOrderNumber();
-        $defultStatus = Sales_Model_Order_History::DEFAULT_ORDER_STATUS;
+        // $defultStatus = Sales_Model_Order_History::DEFAULT_ORDER_STATUS;
         if ($this->getId()){
             return Mage::getModel('sales/order')
                 ->setData($this->getData())

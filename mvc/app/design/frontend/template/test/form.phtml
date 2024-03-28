@@ -1,0 +1,34 @@
+<?php  ?>
+<div class="login-container">
+    <form class="login-form" method="post" action="<?php echo $this->getUrl('test/index/save') ?>" >
+        <h2>Test</h2>
+        <div class="form-field">
+            <label for="parent">Select From Parent:</label>
+            <select name="parent" id="parent" onchange="getParentId()" >
+                <?php foreach($this->getFromParent() as $row ):?>
+                    <option value="<?php echo $row->getId();?>" <?php  echo ($this->getSelectedOption() == $row->getId())? 'selected':'' ?> > <?php echo $row->getName() ?></option>
+                <?php endforeach;?>
+            </select>
+            <input type="submit" value="submit" >
+        </div>
+    </form>
+    <form class="login-form">
+        <div class="form-field">
+            <label for="child">Select child:</label>
+            <select name="child" id="child">
+                <?php foreach($this->getFromChild() as $row ):?>
+                    <option value="<?php echo $row->getId() ?>"><?php echo $row->getName() ?></option>
+                <?php endforeach;?>
+            </select>
+        </div>
+    </form>
+</div>
+<script>
+    function getParentId()
+    {
+        var mfr_id =document.getElementById('parent').value;
+        console.log(mfr_id);
+        return mfr_id;
+    }
+    getParentId();
+</script>

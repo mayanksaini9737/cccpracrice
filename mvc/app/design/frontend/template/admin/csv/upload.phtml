@@ -6,12 +6,36 @@
             <input type="file"  name="csvfile"  id="upload" required >
         </div>
         <div class="form-action">
-            <button type="submit">Upload</button>
+            <button class="upload-button" type="submit">Upload</button>
         </div>
     </form>
+</div>
 
-    <button class="button2" ><a href="<?php echo $this->getUrl('admin/import/read') ?>">Read</a></button>
-    <button class="button2"><a href="<?php echo $this->getUrl('admin/import/import') ?>">Import</a></button>
+<div class="table-container">
+    <h2 class="table-heading">List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>File</th>
+                <th colspan="2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($this->getFileList() as $file): ?>
+                <tr>
+                    <td>
+                        <?php echo $file ?>
+                    </td>
+                    <td>
+                        <a href="<?php echo $this->getUrl('admin/import/read?filename='.$file) ?>">Read</a>
+                    </td>
+                    <td>
+                        <a href="<?php echo $this->getUrl('admin/import/import') ?>">Import</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 </div>
 
 

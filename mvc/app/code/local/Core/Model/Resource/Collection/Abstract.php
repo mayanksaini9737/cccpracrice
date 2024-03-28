@@ -77,8 +77,14 @@ class Core_Model_Resource_Collection_Abstract
                             case 'in':
                                 $whereCondition[] = "{$column} IN ({$_v})";
                                 break;
+                            case 'not in':
+                                $whereCondition[] = "{$column} NOT IN ({$_v})";
+                                break;
                             case 'like':
                                 $whereCondition[] = "{$column} LIKE '{$_v}'";
+                                break;
+                            case 'not like':
+                                $whereCondition[] = "{$column} NOT LIKE '{$_v}'";
                                 break;
                         }
                     }

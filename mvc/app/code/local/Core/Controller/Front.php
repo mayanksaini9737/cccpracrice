@@ -9,7 +9,5 @@ class Core_Controller_Front
         $controller = new $controllerClassName();
         $controller->$actionName();
     }
-
-    
 }
 ?>

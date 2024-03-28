@@ -5,12 +5,12 @@ class Admin_Controller_Import extends Core_Controller_Admin_Action
     {
         $layout = $this->getLayout();
         $layout->getChild('head')->addCss('import/form.css');
+        $layout->getChild('head')->addCss('list.css');
         $child = $layout->getChild('content');
         $bannerList = $layout->createBlock('admin/csv_import');
         $child->addChild('bannerList', $bannerList);
         $layout->toHtml();
     }
-
     public function saveAction()
     {
         $fileData = $this->getRequest()->getFileData('csvfile');
@@ -33,13 +33,13 @@ class Admin_Controller_Import extends Core_Controller_Admin_Action
             $fileData['tmp_name'],
             $importFilePath
         );
-
     }
 
     public function readAction()
     {
         $row = 0;
-        $path = Mage::getBaseDir("media/import") . "/products.csv";
+        $filename = $this->getRequest()->getParams('filename');
+        $path = Mage::getBaseDir("media/import") . "/" . $filename;
         if (!file_exists($path)) {
             echo "File not found: $path";
             exit;

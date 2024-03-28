@@ -106,11 +106,11 @@ body {
     z-index: -1; 
 }
 
-
 .cancel-button a{
     text-decoration: none;
     color: white;
 }
+
 .cancel-button {
     margin-top: 20px;
     background-color: #ff6347; 

@@ -47,16 +47,16 @@ input {
 option {
     font-weight: 600;
     color: #555;
-    background-color: #fff; /* Background color */
+    background-color: #fff; 
     padding: 10px;
 }
 
 option:hover {
-    background-color: #f0f0f0; /* Hover background color */
+    background-color: #f0f0f0; 
 }
 
 option:checked {
-    background-color: #c6c6c6; /* Selected background color */
+    background-color: #c6c6c6;
 }
 
 .form-action {
@@ -65,7 +65,7 @@ option:checked {
 
 button {
     padding: 10px;
-    background-color: #4caf50;
+    background-color: #007bff;
     color: #fff;
     font-weight: 700;
     border: none;
@@ -82,7 +82,7 @@ button a{
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
 }
 
 .login-links {
